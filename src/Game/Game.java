@@ -145,9 +145,9 @@ public class Game {
 
 	/**
 	 * used to get a specific boardsquare object using a string
-	 * @param piecePos a string representation of the coordinates in the board
-	 * @return returns a boardsquare object
-	 * @author Jose Santos 	17993442
+	 * @param piecePos	a string representation of the coordinates in the board
+	 * @return 			returns a boardsquare object
+	 * @author Jose Santos 		17993442
 	 */
 	public BoardSquare getSquare(String piecePos) {
 
@@ -166,7 +166,7 @@ public class Game {
 	 * 		3) the move cannot land on another piece from the same side
 	 * 		4) the players king is not in check (the player will only be able to move the king)
 	 * 		5) there are no other pieces on its path unless it the piece can leap over others
-	 * @param bSquare the boardsquare with a piece that we are trying to relocate somewhere else
+	 * @param bSquare		the boardsquare with a piece that we are trying to relocate somewhere else
 	 * @param newPiecePos	the coordinates to the new piece position
 	 * @author Jose Santos 		17993442
 	 */
@@ -212,7 +212,7 @@ public class Game {
 	 * Checks if the new position is within the boundary of the board
 	 * @param xDes 	coordinate on the x plane
 	 * @param yDes	coordinate on the y plane
-	 * @return boolean showing if the new position is within the boundary
+	 * @return 		boolean showing if the new position is within the boundary
 	 * @throws MoveOutOfBoundsException
 	 * @author Jose Santos 		17993442
 	 */
@@ -236,7 +236,7 @@ public class Game {
 	 * @param bSquare	the square on the board with the piece we are currently checking
 	 * @param xDes		x destination coordinate
 	 * @param yDes		y destination coordinate
-	 * @return		returns a boolean on whether the piece has moved or not
+	 * @return			returns a boolean on whether the piece has moved or not
 	 * @throws PieceHasNotMovedException
 	 * @author Jose Santos 		17993442
 	 */
@@ -261,7 +261,7 @@ public class Game {
 	 * @param bSquare	the square containing the current piece we are checking
 	 * @param xDes		x destination coordinate
 	 * @param yDes		y destination coordinate
-	 * @return		a boolean that tells whether or not the move is a valid end point
+	 * @return			a boolean that tells whether or not the move is a valid end point
 	 * @throws InvalidEndPointException
 	 * @author Jose Santos 		17993442
 	 */
@@ -279,7 +279,8 @@ public class Game {
 
 		}
 	}
-        
+
+
 	/**
 	 * checks if the move made to the destination coordinate will result in capturing an enemy piece
 	 * @param bSquare	the square containing the piece we are currently checking

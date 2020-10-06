@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import Gui.*;
+
 import Game.*;
 import Pieces.*;
 
@@ -339,9 +339,8 @@ public class ChessMain {
 	public static void main (String[] args)  {
 
 		System.out.println("Welcome to Chesssssssss\n");
-                ChessBoardGui gui = new ChessBoardGui();
+
 		ChessMain chess = new ChessMain();
-                
 	}
 
 
