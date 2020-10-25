@@ -5,7 +5,6 @@
  */
 package Project_2;
 
-import Project_2.GUI.Data;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -99,13 +98,32 @@ public class Chess_DB {
                 System.out.println("No user found");
                 
             }
+  
+        } catch (SQLException ex) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return data;
+    }
+    
+    public Data insertUser(String username, String password) { 
+        Data data = new Data(); 
+        
+        try { 
             
+            Statement statement = conn.createStatement(); 
+            ResultSet rs = statement.executeQuery("INSERT INTO " +userTable+ 
+                    " VALUES ('" +username+ "', '" +password+ "', 0)");
+       
+            System.out.println("user created");
+            
+            data.userCreated = true;
             
             
         } catch (SQLException ex) {
             Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         
         return data;
     }
