@@ -11,23 +11,14 @@ package Project_2;
  */
 public class Data {
     
-    public MenuState menu; 
+    public MENU_STATE menu; 
+    public User_Data u_data;
+    
     
     public Data() { 
         menu = menu.START_MENU;
         
         
     }
-    
-    //startup menu 
-   public boolean isLoggedIn = false; 
-   public boolean hasQuit = false; 
-   public boolean isCreatingNewUser = false;
-   public boolean userCreated = false;
-   public boolean backClicked = false;
    
-   
-   
-    
-    
 }

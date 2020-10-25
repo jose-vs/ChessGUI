@@ -5,12 +5,20 @@
  */
 package Project_2;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import Game.*;
+import Pieces.Bishop;
+import Pieces.King;
+import Pieces.Knight;
+import Pieces.Pawn;
+import Pieces.Piece;
+import Pieces.Queen;
+import Pieces.Rook;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.*;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,13 +50,16 @@ public class Chess_DB {
                             + "userPassword VARCHAR(64), "
                             + "userGames INTEGER, "
                     + "CONSTRAINT user_PK PRIMARY KEY (userName)");
-            } else if(!checkTableExisting(userTable)) { 
+            } else if(!checkTableExisting(gameTable)) { 
                 statement.executeUpdate(
                     "CREATE TABLE " +gameTable+ " ("
                             + "gameID VARCHAR(10), "
-                            + "userID INTEGER, "
+                            + "userName VARCHAR(64), "
                             + "datePlayed DATE, "
                             + "gameFile VARCHAR(32), "
+                            + "isFinished BOOLEAN NOT NULL, "
+                            + "playerTurn VARCHAR(10)"
+                            + "winner VARCHAR (10)"
                     + "CONSTRAINT game_PK PRIMARY KEY (gameID, userName), "
                     + "CONSTRAINT game_user_FK FOREIGN KEY (userName) REFERENCES " +userTable+ "(userName)");
             }
@@ -88,21 +99,21 @@ public class Chess_DB {
                 System.out.println("user found");
                 
                 if(password.equals(pass)) { 
-                    data.isLoggedIn = true;
+                    data.menu = MENU_STATE.LOGGED_IN;
                 } else { 
-                    data.isLoggedIn = false;
+                    data.menu = MENU_STATE.LOG_IN_FAILED;
                 }
                 
             } else { 
                 
                 System.out.println("No user found");
+                data.menu = MENU_STATE.LOG_IN_FAILED;
                 
             }
   
         } catch (SQLException ex) {
             Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         
         return data;
     }
@@ -113,12 +124,12 @@ public class Chess_DB {
         try { 
             
             Statement statement = conn.createStatement(); 
-            ResultSet rs = statement.executeQuery("INSERT INTO " +userTable+ 
-                    " VALUES ('" +username+ "', '" +password+ "', 0)");
+            statement.executeUpdate("INSERT INTO " +userTable+ 
+                    "(userName, userPassword, userGames) VALUES ('" +username+ "', '" +password+ "', 0)");
        
             System.out.println("user created");
             
-            data.userCreated = true;
+            data.menu = MENU_STATE.START_MENU;
             
             
         } catch (SQLException ex) {
@@ -126,6 +137,159 @@ public class Chess_DB {
         }
         
         return data;
+    }
+    
+    public User_Data getUser(String username) { 
+        System.out.println("reached getUser");
+        User_Data u_data = new User_Data(username);
+        Scanner reader;
+        File gameFile;
+
+        try { 
+            
+            //add all the games to the user ArrayList
+            Statement statement = conn.createStatement(); 
+            ResultSet rst = statement.executeQuery(
+                "SELECT * FROM C_GAME WHERE username = '" +username+ "'");
+            
+            while (rst.next()) { 
+                
+                try{
+                    
+                    gameFile = new File(rst.getString("gameFile")+".txt"); //Games.txt
+                    reader = new Scanner(new FileReader(gameFile));
+                
+                    String fileString = "";
+                    
+                    while (reader.hasNextLine())
+                        fileString += reader.nextLine() + "\n"; 
+                    String[] gameInfo = fileString.split("@");
+                    
+                   /**
+                    * Reading and saving the Board
+                    */
+                    String[] board = gameInfo[1].split("\n");
+                    String[][] boardSquares = new String[8][8];
+                    BoardSquare[][] initBoardSquare = new BoardSquare[8][8];
+                    Player player1 = new Player(Side.WHITE); 
+                    Player player2 = new Player(Side.BLACK);
+                    int yPos = 7; 
+                    int xPos = 0;
+                    
+                   /**
+                    * Creates a 2d String array to easily check what each square on the board contains
+                    */
+                    for (int x = 1; x <= 8; x++) {
+
+                        //the row split up into substrings representing each square and what's contained within them
+                        boardSquares[x-1] = new String[]{board[x].substring(3, 12), board[x].substring(15, 24), board[x].substring(27, 36),
+			board[x].substring(39, 48), board[x].substring(51, 60), board[x].substring(63, 72),
+			board[x].substring(75, 84), board[x].substring(87, 96)};
+                    }
+                    
+                   /**
+                    * Saves the 2d String array of the board from the file into a 2d array of BoardSquare objects
+                    */
+                    for (String[] row: boardSquares) {
+                        for(String bSquare: row) {
+
+                            String square = bSquare.replaceAll("\\s+","").toLowerCase();
+
+                            if (square.charAt(0) == 'w') { // checks if the piece on the current bSquare is white
+
+                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
+
+                                if (this.addPieces(square, player1) != null)
+                                initBoardSquare[yPos][xPos].setPiece(this.addPieces(square, player1));
+
+                            } else if (square.charAt(0) == 'b') { // checks if the piece on the current bSquare is black
+
+                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
+
+                                if (this.addPieces(square, player2) != null)
+                                initBoardSquare[yPos][xPos].setPiece(this.addPieces(square, player2));
+
+                            } else { // if there are no pieces found, create a BoardSquare object without a piece
+                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
+                            }
+                            xPos++;
+			}
+                        yPos--;
+			xPos = 0;
+		}
+
+		//Initialized Board
+		Board initBoard = new Board(initBoardSquare);
+                
+                String moveHistory = gameInfo[2].substring(gameInfo[2].indexOf('\n')+1);
+                int gameTurns = moveHistory.split("\n").length;
+        
+                if (rst.getString("isFinished").equals("Yes")) {
+                    
+                    if(rst.getString("winner").equals("White")) 
+                        player2.isLoser = true; 
+                    else if(rst.getString("winner").equals("Black")) 
+                        player1.isLoser = true; 
+                    
+                } else if (rst.getString("isFinished").equals("No"))  { 
+                    
+                    if (rst.getString("playerTurn").equals("White"))
+			player1.isTurn = true;
+                    else if (rst.getString("playerTurn").equals("Black"))
+			player2.isTurn = true;
+                }
+                
+                Game initGame = new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
+                u_data.storedGames.add(initGame);
+                
+                u_data.gameID.add(rst.getString("gameID"));
+                
+                }catch (IOException o) {
+			System.err.println("File Not Found!");
+			
+		}
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        
+        
+        return u_data;
+    }
+    
+    public Piece addPieces(String pieces, Player player) { 
+        
+        if(pieces.contains("pawn")) {
+
+            return new Pawn(player);
+
+	} else if (pieces.contains("rook")) {
+
+            return new Rook(player);
+
+	} else if (pieces.contains("knight")) {
+
+            return new Knight(player);
+
+        } else if (pieces.contains("bishop")) {
+
+            return new Bishop(player);
+
+        } else if (pieces.contains("queen")) {
+
+            return new Queen(player);
+
+        } else if (pieces.contains("king")) {
+
+            return new King(player);
+
+	} else {
+
+            return null;
+
+	}
     }
     
     
@@ -160,4 +324,9 @@ public class Chess_DB {
         
         return flag;
     }
+    
+    
+    
+    
+    
 }

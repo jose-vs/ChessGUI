@@ -12,3 +12,9 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=C:\Users\Jose\Desktop\Code\Java\PDC\PDC - Project\Chess Game\db
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Oct 26 04:18:32 NZDT 2020: Shutting down Derby engine
+----------------------------------------------------------------
+Mon Oct 26 04:18:32 NZDT 2020:
+Shutting down instance a816c00e-0175-5d6b-23c6-ffffde6e80bd on database directory C:\Users\Jose\Desktop\Code\Java\PDC\PDC - Project\Chess Game\db\chessDB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+----------------------------------------------------------------

@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Project_2.GUI.Chess_Panels;
-
-import javax.swing.JPanel;
+package Project_2.GUI;
 
 /**
  *
  * @author Jose
  */
-public class Create_User_Menu extends JPanel {
+public class Window_Controller {
+    
+    Chess_Model model; 
+    
+    public Window_Controller(Chess_Model model ) { 
+        this.model = model;
+        
+    }
     
 }

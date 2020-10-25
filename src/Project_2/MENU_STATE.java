@@ -9,6 +9,15 @@ package Project_2;
  *
  * @author Jose
  */
-public enum MenuState {
-    START_MENU, CREATE_USER, LOGGED_IN, USER_CREATED, QUIT, VIEW_MOVEHISTORY
+public enum MENU_STATE {
+    
+    START_MENU, 
+    LOGGED_IN, LOG_IN_FAILED, 
+    NEW_USER, CREATE_USER, SM_BACK, 
+    
+    GAME_SELECT_MENU,
+    
+    QUIT
+   
+  
 }

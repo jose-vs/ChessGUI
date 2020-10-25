@@ -19,9 +19,7 @@ public class Chess_Model extends Observable {
     public Data data = new Data(); 
     
     public String username;
-    
- 
-    
+   
     public Chess_Model() { 
         this.db = new Chess_DB(); 
         this.db.dbSetup();
@@ -32,19 +30,20 @@ public class Chess_Model extends Observable {
         this.username = username; 
         this.data = this.db.validateUser(username, password);
         
-        if(data.isLoggedIn){ 
+        if(this.data.menu ==  MENU_STATE.LOGGED_IN) {
+            //enter game select menu 
+            this.data.menu = MENU_STATE.GAME_SELECT_MENU;
+            this.data.u_data = this.db.getUser(username);
             
-            //enter menu to check if the user wants to select a game or start a new game
-        } 
-        
+        }
         this.setChanged();
         this.notifyObservers(this.data);
  
     }
     
-    public void openCreateUser() { 
+    public void createUserMenu() { 
         
-        data.isCreatingNewUser = true;
+        this.data.menu = MENU_STATE.NEW_USER;
         this.setChanged();
         this.notifyObservers(this.data);
     }
@@ -59,18 +58,20 @@ public class Chess_Model extends Observable {
         
     }
     
+    
+    /**
+     * GOES BACK TO THE PREVIOUS MENU
+     * @param data 
+     */
     public void back(Data data) { 
         
+        if (data.menu == MENU_STATE.NEW_USER)  
+            data.menu = MENU_STATE.START_MENU;
+
         this.data = data;
-        this.data.backClicked = true;
-        
-        if (this.data.isCreatingNewUser){ 
-            this.data.isCreatingNewUser = false;
-        }
-        
         this.setChanged();
         this.notifyObservers(this.data);
-        
+      
     }
     
     /**

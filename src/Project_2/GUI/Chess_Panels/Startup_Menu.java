@@ -5,6 +5,8 @@
  */
 package Project_2.GUI.Chess_Panels;
 
+import Project_2.Data;
+import Project_2.MENU_STATE;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -64,10 +66,6 @@ public class Startup_Menu extends JPanel implements Observer{
         create_user.setBounds(175,235,105,25);
         add(create_user);
         
-        
-        
-        
-        
         exit = new JButton("Exit"); //closes the whole program 
         exit.setBounds(50, 600, 75, 25);
         add(exit);
@@ -93,6 +91,48 @@ public class Startup_Menu extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object arg) {
 
+        Data data = (Data) arg; 
+        
+        System.out.println("STARTUP MENU STATE: "+data.menu);
+        
+        switch (data.menu) {
+               
+            case LOG_IN_FAILED:
+                System.out.println("failed to login");
+                userNotFound.setVisible(true);
+                break;
+                
+            case NEW_USER:
+                login.setVisible(false);
+                new_user.setVisible(false);
+                userNotFound.setVisible(false);
+                back.setVisible(true);
+                create_user.setVisible(true);
+                this.repaint();
+                break;
+                
+            case CREATE_USER:
+                System.out.println("create new user"); 
+                login.setVisible(false);
+                new_user.setVisible(false);
+                userNotFound.setVisible(false);
+                back.setVisible(true);
+                create_user.setVisible(true);
+                this.repaint();
+                break;
+                
+            case START_MENU:
+                login.setVisible(true);
+                new_user.setVisible(true);
+                userNotFound.setVisible(false);
+                back.setVisible(false);
+                create_user.setVisible(false);
+                this.repaint();
+                break;
+           
+        } 
+        
     }
     
 }
+    
