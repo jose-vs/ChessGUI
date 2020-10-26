@@ -26,19 +26,16 @@ public class Chess_Model extends Observable {
     }
     
     public void checkName(String username, String password) { 
-        
         this.username = username; 
         this.data = this.db.validateUser(username, password);
         
-        if(this.data.menu ==  MENU_STATE.LOGGED_IN) {
-            //enter game select menu 
-            this.data.menu = MENU_STATE.GAME_SELECT_MENU;
-            this.data.u_data = this.db.getUser(username);
+        if(this.data.menu ==  MENU_STATE.LOGGED_IN) { //if logged in, enter game select menu
+            
+            this.data = this.db.getUser(username);
             
         }
         this.setChanged();
         this.notifyObservers(this.data);
- 
     }
     
     public void createUserMenu() { 
@@ -55,7 +52,15 @@ public class Chess_Model extends Observable {
         
         this.setChanged(); 
         this.notifyObservers(this.data);
+    }
+    
+    public void getMoveHistory() { 
+        this.data = this.db.getMoveHistory(data, username);
+        this.data.menu = MENU_STATE.MOVE_HISTORY;
         
+        System.out.println(this.data.moveHistory);
+        this.setChanged(); 
+        this.notifyObservers(this.data);
     }
     
     
@@ -67,6 +72,9 @@ public class Chess_Model extends Observable {
         
         if (data.menu == MENU_STATE.NEW_USER)  
             data.menu = MENU_STATE.START_MENU;
+        else if (data.menu == MENU_STATE.GAME_SELECT_MENU || data.menu == MENU_STATE.MOVE_HISTORY) {
+            data.menu = MENU_STATE.START_MENU;
+        }
 
         this.data = data;
         this.setChanged();

@@ -8,6 +8,8 @@ package Project_2.GUI;
 import Project_2.GUI.Chess_Panels.Game_Select_Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -22,8 +24,9 @@ public class GS_Controller implements ActionListener {
         this.gs_menu = gs_menu; 
         this.model = model;
         
-        
-        
+        gs_menu.back.addActionListener(this);
+        gs_menu.mHistory_but.addActionListener(this);
+        gs_menu.games.addListSelectionListener(new GameSelectionListener());
     }
     
     
@@ -32,11 +35,27 @@ public class GS_Controller implements ActionListener {
         String command = e.getActionCommand(); 
 
         switch (command) {
-            
+            case "Back":
+                model.back(model.data);
+                break;
+            case "Move History" : 
+                model.getMoveHistory();
         }
             
     }
     
-    
+    public class GameSelectionListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            
+            String gameID = (String) gs_menu.games.getSelectedValue();
+            model.data.gameID = gameID.substring(1).replaceAll("\\s+","");
+            System.out.println(model.data.gameID);
+        }
+    }
     
 }
+    
+    
+

@@ -15,12 +15,12 @@ import java.util.*;
 public class User_Data {
     
     public ArrayList<Game> storedGames; 
-    public ArrayList<String> gameID;
+    public ArrayList<String> gameDesc;
     
     
     public User_Data(String username) {
         storedGames = new ArrayList<>();
-        gameID = new ArrayList<>();
+        gameDesc = new ArrayList<>();
     }
     
     

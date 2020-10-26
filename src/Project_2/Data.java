@@ -5,6 +5,9 @@
  */
 package Project_2;
 
+import Game.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author Jose
@@ -14,11 +17,18 @@ public class Data {
     public MENU_STATE menu; 
     public User_Data u_data;
     
+    public String gameID;
+    public String moveHistory;
+    public ArrayList<String> storedGames;
+    
+    public Game game;
+    
     
     public Data() { 
-        menu = menu.START_MENU;
+        menu = MENU_STATE.START_MENU;
         
-        
+        storedGames = new ArrayList<>();
+        game = new Game();
     }
    
 }

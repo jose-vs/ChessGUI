@@ -139,9 +139,9 @@ public class Chess_DB {
         return data;
     }
     
-    public User_Data getUser(String username) { 
+    public Data getUser(String username) { 
         System.out.println("reached getUser");
-        User_Data u_data = new User_Data(username);
+        Data data_update = new Data();
         Scanner reader;
         File gameFile;
 
@@ -156,7 +156,7 @@ public class Chess_DB {
                 
                 try{
                     
-                    gameFile = new File(rst.getString("gameFile")+".txt"); //Games.txt
+                    gameFile = new File(rst.getString("gameID")+".txt"); //Games.txt
                     reader = new Scanner(new FileReader(gameFile));
                 
                     String fileString = "";
@@ -240,9 +240,20 @@ public class Chess_DB {
                 }
                 
                 Game initGame = new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
-                u_data.storedGames.add(initGame);
+                //u_data.storedGames.add(initGame);
+              
                 
-                u_data.gameID.add(rst.getString("gameID"));
+                //^^Not needed
+                //only need to store the game file and id
+                //once the user selects this game, find the file and load the rest to 
+                //initialize a whole game
+                
+                String gameDesc_txt = rst.getString("isFinished").equals("Yes") ? " " : "*";
+                gameDesc_txt += rst.getString("gameID"); // fix format
+             
+                data_update.storedGames.add(gameDesc_txt);
+                //data_update.gameID = rst.getString("gameID");
+                data_update.menu = MENU_STATE.GAME_SELECT_MENU;
                 
                 }catch (IOException o) {
 			System.err.println("File Not Found!");
@@ -253,11 +264,51 @@ public class Chess_DB {
         } catch (SQLException ex) {
             Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
-        
-        
-        return u_data;
+
+        return data_update;
     }
+    
+    public Data getMoveHistory(Data data, String username) { 
+        System.out.println("reached getMatchHistory");
+
+        Scanner reader;
+        File gameFile;
+
+        try { 
+                    
+            Statement statement = conn.createStatement(); 
+            ResultSet rst = statement.executeQuery(
+                "SELECT gameID FROM C_GAME WHERE username = '" +username+ "' AND "
+                        + "gameID = '" +data.gameID+"'");
+            
+            try {
+                    
+                if (rst.next()) { 
+                    gameFile = new File(rst.getString("gameID")+".txt");
+                    reader = new Scanner(new FileReader(gameFile));
+                    String fileString = "";
+                    
+                    while (reader.hasNextLine())
+                        fileString += reader.nextLine() + "\n"; 
+                    String[] gameInfo = fileString.split("@");
+                    
+                    data.moveHistory = gameInfo[2].substring(gameInfo[2].indexOf('\n')+1);
+                }
+      
+            }catch (IOException o) {
+                
+		System.err.println("File Not Found!");
+			
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return data;
+    }
+    
+    
     
     public Piece addPieces(String pieces, Player player) { 
         

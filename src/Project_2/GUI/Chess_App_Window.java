@@ -50,14 +50,25 @@ public class Chess_App_Window extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("reach");
+       
         Data data = (Data) arg;
+        System.out.println("CHANGE MENU TO: "+data.menu);
+       
         
-        if(data.menu == MENU_STATE.GAME_SELECT_MENU) { 
+        switch (data.menu) { 
             
-            System.out.println("CHANGE MENU TO: "+data.menu);
-            startup_menu.setVisible(false);
-            game_select_menu.setVisible(true);
+            case GAME_SELECT_MENU :
+                
+                startup_menu.setVisible(false);
+                game_select_menu.setVisible(true);
+                break;
+                
+            case START_MENU : 
+                
+                game_select_menu.setVisible(false); 
+                startup_menu.setVisible(true);
+                break;
+            
         }
         
       
