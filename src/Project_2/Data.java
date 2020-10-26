@@ -30,5 +30,10 @@ public class Data {
         storedGames = new ArrayList<>();
         game = new Game();
     }
+    
+    public void createNewGame() { 
+        Game newGame = new Game(); 
+        this.game = newGame;
+    }
    
 }

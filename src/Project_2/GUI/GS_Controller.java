@@ -27,6 +27,8 @@ public class GS_Controller implements ActionListener {
         gs_menu.back.addActionListener(this);
         gs_menu.mHistory_but.addActionListener(this);
         gs_menu.games.addListSelectionListener(new GameSelectionListener());
+        gs_menu.newGame.addActionListener(this);
+        gs_menu.start.addActionListener(this);
     }
     
     
@@ -40,6 +42,16 @@ public class GS_Controller implements ActionListener {
                 break;
             case "Move History" : 
                 model.getMoveHistory();
+                break; 
+            case "New Game" : 
+                model.startNewGame(null);
+                break;
+            case "Start" : 
+                String newGameName = 
+                        gs_menu.newGameName.getText().replaceAll("\\s+","");
+                model.startNewGame(newGameName);
+                break;
+                
         }
             
     }
@@ -48,10 +60,16 @@ public class GS_Controller implements ActionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
+            try { 
+            //null pointer exception
+            //doestn affect the program : must handle 
             
-            String gameID = (String) gs_menu.games.getSelectedValue();
-            model.data.gameID = gameID.substring(1).replaceAll("\\s+","");
-            System.out.println(model.data.gameID);
+                String gameID = gs_menu.games.getSelectedValue().toString();
+                model.getGameID(gameID.substring(1).replaceAll("\\s+",""));
+                
+            } catch (NullPointerException o) { 
+                 System.err.println("NULL POINTER at GS_CONTROLLER");
+            }
         }
     }
     

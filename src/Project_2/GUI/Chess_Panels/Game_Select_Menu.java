@@ -16,13 +16,18 @@ import javax.swing.*;
  */
 public class Game_Select_Menu extends JPanel implements Observer {
 
-    public JButton continueGame, newGame, back, mHistory_but, exit;
+    public JButton continueGame, newGame, back, mHistory_but, exit, start;
     public JList games; 
     public JLabel welcomeUser, pastGames, mHistory_title;
     public JTextPane moveHistory;
+    public JTextField newGameName; // this will be the game ID
     
     public Game_Select_Menu(){
     
+        newGameName = new JTextField("Enter Game Name");
+        newGameName.setBounds(100,155,120,25);
+        newGameName.setVisible(false);
+        add(newGameName);
         
         continueGame = new JButton("Continue"); 
         continueGame.setBounds(100,155, 120,25); 
@@ -31,6 +36,11 @@ public class Game_Select_Menu extends JPanel implements Observer {
         newGame = new JButton("New Game"); 
         newGame.setBounds(100,195, 120,25); 
         add(newGame);
+        
+        start = new JButton("Start"); 
+        start.setBounds(100,195, 120,25);
+        start.setVisible(false);
+        add(start);
         
         back = new JButton("Back"); 
         back.setBounds(100,235, 120,25); 
@@ -86,13 +96,22 @@ public class Game_Select_Menu extends JPanel implements Observer {
                 
                 games.setListData(data.storedGames.toArray());
                 moveHistory.setVisible(false);
+                newGameName.setVisible(false);
+                start.setVisible(false);
+                continueGame.setVisible(true);
+                newGame.setVisible(true);
                 break;
                
             case NEW_GAME : 
                 
+                continueGame.setVisible(false);
+                newGame.setVisible(false);
+                newGameName.setVisible(true);
+                start.setVisible(true);
+                
                 break;
                 
-            case CONTINUE :
+            case START_GAME :
                 
                 break;
                 

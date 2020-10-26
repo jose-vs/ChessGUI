@@ -71,7 +71,7 @@ public class Startup_Menu extends JPanel implements Observer{
         add(exit);
         
         try { 
-            chessLogo = ImageIO.read(new File("C:\\Users\\Jose\\Desktop\\Code\\Java\\PDC\\PDC - Project\\Chess Game\\src\\Project_2\\GUI_assets\\chessLogo.png"));
+            chessLogo = ImageIO.read(new File("chessLogo.png"));
         } catch (IOException e) { 
             System.err.println("FILE NOT FOUND");
         }

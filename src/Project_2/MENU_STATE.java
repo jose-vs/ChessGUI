@@ -17,6 +17,11 @@ public enum MENU_STATE {
     
     GAME_SELECT_MENU, 
     MOVE_HISTORY, NEW_GAME, CONTINUE,
+    START_GAME,
+    
+    START_GAME_MENU, 
+    
+    
     
     QUIT
    

@@ -63,6 +63,20 @@ public class Chess_Model extends Observable {
         this.notifyObservers(this.data);
     }
     
+    public void startNewGame(String gameID){ 
+        if (this.data.menu != MENU_STATE.NEW_GAME)
+            this.data.menu = MENU_STATE.NEW_GAME;
+        else { 
+            this.data.menu = MENU_STATE.START_GAME;
+            this.data.gameID = gameID;
+            this.data.createNewGame();
+            System.out.println("NEW GAME CREATED " + gameID);
+        }
+        
+        this.setChanged(); 
+        this.notifyObservers(this.data);
+    }
+    
     
     /**
      * GOES BACK TO THE PREVIOUS MENU
@@ -70,20 +84,39 @@ public class Chess_Model extends Observable {
      */
     public void back(Data data) { 
         
-        if (data.menu == MENU_STATE.NEW_USER)  
-            data.menu = MENU_STATE.START_MENU;
-        else if (data.menu == MENU_STATE.GAME_SELECT_MENU || data.menu == MENU_STATE.MOVE_HISTORY) {
-            data.menu = MENU_STATE.START_MENU;
+        switch (data.menu) {
+            
+            case NEW_USER:
+                
+                this.data.menu = MENU_STATE.START_MENU;
+                break;
+                
+            case GAME_SELECT_MENU:
+            case MOVE_HISTORY:
+                this.data.menu = MENU_STATE.START_MENU;
+                break;
+                
+            case NEW_GAME:
+                this.data.menu = MENU_STATE.GAME_SELECT_MENU;
+                break;
+            
         }
-
-        this.data = data;
+        
         this.setChanged();
         this.notifyObservers(this.data);
-      
     }
     
-    /**
-     * methods for handling the game itself 
-     */
+    public void getGameID(String gameID) { 
+        this.data.gameID = gameID;
+        this.setChanged();
+        this.notifyObservers(this.data);
+    }
+    
+    
+    
+   // public void gameSetup() 
+    
+    
+    
     
 }
