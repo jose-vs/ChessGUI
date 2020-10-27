@@ -344,6 +344,40 @@ public class Chess_DB {
     }
     
     
+    public void insertGametoDB(String username, String gameID) { 
+
+        
+        if (checkGameExists(username, gameID)) { //update
+            
+        } else { //insert new row
+            
+        }
+        
+        
+    }
+    
+    private boolean checkGameExists(String username, String gameID){ 
+       boolean flag = false;
+        try { 
+            Statement statement = conn.createStatement(); 
+            ResultSet rst = statement.executeQuery(
+                "SELECT gameID FROM C_GAME WHERE username = '" +username+ "' AND "
+                        + "gameID = '" +gameID+"'");
+            
+            if (rst.next()) { 
+                flag = true;
+            } else { 
+                flag = false;
+            }
+           
+       } catch (SQLException e) { 
+           e.printStackTrace();
+       }
+        System.out.println(flag);
+        return flag;
+        
+    }
+    
     private boolean checkTableExisting(String newTableName) {
         boolean flag = false;
         try {

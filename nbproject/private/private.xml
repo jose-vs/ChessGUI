@@ -3,19 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Panels/Start_Game.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/GS_Controller.java</file>
-            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Panels/Game_Select_Menu.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Game/Game.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Panels/Game_Select_Menu.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Game/Rank.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Game/Board.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/SG_Controller.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/Chess_DB.java</file>
-            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Main/User.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/SM_Controller.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/MENU_STATE.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Panels/Startup_Menu.java</file>
-            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Main/ChessMain.java</file>
-            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Model.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_App_Window.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Model.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/Data.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Pieces/Piece.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/GUI/Chess_Game_Model.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/User_Data.java</file>
+            <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Game/BoardSquare.java</file>
             <file>file:/C:/Users/Jose/Desktop/Code/Java/PDC/PDC%20-%20Project/Chess%20Game/src/Project_2/Chess.java</file>
         </group>
     </open-files>

@@ -19,10 +19,11 @@ public class Data {
     
     public String gameID;
     public String moveHistory;
+    public String moveHistoryHTML;
     public ArrayList<String> storedGames;
     
     public Game game;
-    
+    public BoardSquare startPos;
     
     public Data() { 
         menu = MENU_STATE.START_MENU;
@@ -34,6 +35,11 @@ public class Data {
     public void createNewGame() { 
         Game newGame = new Game(); 
         this.game = newGame;
+    }
+    
+    public void setMoveHistory(String moveHistory) { 
+        this.moveHistory = moveHistory;
+        this.moveHistoryHTML = "<html>" +moveHistory.replaceAll("\n", "<br/>") +"</html>";
     }
    
 }

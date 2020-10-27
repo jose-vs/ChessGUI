@@ -156,6 +156,10 @@ public class Game {
 			return gameBoard.board[(int)p.charAt(1)-49][(int)p.charAt(0)-65];
 
 	}
+        
+        public BoardSquare getSquare(int xPos, int yPos) { 
+            return gameBoard.board[yPos][xPos];
+        }
 
 
 	/**
@@ -206,6 +210,36 @@ public class Game {
 		}
 
 	}
+        
+        public void move(BoardSquare bSquare, int xDes, int yDes) { 
+            
+            String newPiecePos = String.valueOf((char)(xDes+65))+(char)(yDes+49);
+
+            int[][] path = bSquare.getPiece().drawMove(bSquare.getxPos(), bSquare.getyPos(), xDes, yDes);
+
+		try {
+
+			// checks if the move is valid
+                    if ((inBoundary(xDes, yDes) && hasMoved(bSquare, xDes, yDes) && isValidEndPoint(bSquare, xDes, yDes) &&
+			isLeapingValid(bSquare.getPiece(), path) && bSquare.getPiece().isValidPath(bSquare, xDes, yDes) &&
+			isTurn(bSquare)) && (!player1.isLoser || !player2.isLoser))
+
+                    if (isCapture(bSquare, xDes, yDes)) {
+
+			gameBoard.board[yDes][xDes].setPiece(null);
+
+                    }
+
+                    writeMoveHistory(bSquare, newPiecePos);
+                    movePiece(bSquare, xDes, yDes);
+
+		} catch(MoveOutOfBoundsException | IllegalLeapingException |
+                    InvalidEndPointException | PieceHasNotMovedException |
+                    InvalidPathException | NotPlayersTurnException e) {
+
+			e.printStackTrace();
+		}
+        }
 
 
 	/**
@@ -404,6 +438,14 @@ public class Game {
 		gameBoard.board[yStart][xStart].setPiece(null);
 
 	}
+        
+        public void movePiece(BoardSquare bSquare, int xDes, int yDes) { 
+            int xStart = bSquare.getxPos();
+            int yStart = bSquare.getyPos();
+
+            gameBoard.board[yDes][xDes].setPiece(bSquare.getPiece());
+            gameBoard.board[yStart][xStart].setPiece(null);
+        } 
 
 
 	/**

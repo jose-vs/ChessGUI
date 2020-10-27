@@ -8,6 +8,7 @@ package Project_2.GUI;
 import Project_2.GUI.Chess_Panels.Start_Game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 /**
  *
@@ -22,16 +23,48 @@ public class SG_Controller implements ActionListener {
         this.sg = sg; 
         this.model = model;
         
+        sg.save.addActionListener(this);
+        
+        for (Chess_Square_Button[] row : this.sg.board) { 
+            for (Chess_Square_Button col : row) { 
+                col.addActionListener(this);
+                
+            }
+        }
         
         
     }
-    
-    
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
+        if (e.getSource() instanceof Chess_Square_Button) {
+            Chess_Square_Button spot = (Chess_Square_Button)e.getSource(); 
+   
+           model.movePiece(spot.getxCoordinate(), spot.getyCoordinate());
+           
+        } else {
+            
+            String command = e.getActionCommand(); 
+        
+            switch (command) { 
+                
+                case "Save" :
+                    
+                    model.saveGame();
+                    
+                    break; 
+                    
+                case "Exit" : 
+                    break;
+            }
+            
+        }
+        
+        
+        
+        
+        
     }
     
 }

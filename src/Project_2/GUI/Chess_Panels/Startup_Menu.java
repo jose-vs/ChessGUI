@@ -93,7 +93,7 @@ public class Startup_Menu extends JPanel implements Observer{
 
         Data data = (Data) arg; 
         
-        System.out.println("STARTUP MENU STATE: "+data.menu);
+       //System.out.println("STARTUP MENU STATE: "+data.menu);
         
         switch (data.menu) {
                

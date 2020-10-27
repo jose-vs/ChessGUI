@@ -5,6 +5,7 @@
  */
 package Project_2.GUI;
 
+import Game.*;
 import Project_2.Data;
 import Project_2.*;
 import java.util.Observable;
@@ -69,12 +70,18 @@ public class Chess_Model extends Observable {
         else { 
             this.data.menu = MENU_STATE.START_GAME;
             this.data.gameID = gameID;
+            this.data.setMoveHistory("");
             this.data.createNewGame();
             System.out.println("NEW GAME CREATED " + gameID);
         }
         
         this.setChanged(); 
         this.notifyObservers(this.data);
+    }
+    
+    public void saveGame(){ 
+        System.out.println(this.username);
+       this.db.insertGametoDB(username, this.data.gameID);
     }
     
     
@@ -112,6 +119,33 @@ public class Chess_Model extends Observable {
         this.notifyObservers(this.data);
     }
     
+    public void movePiece(int xPos, int yPos) { 
+        
+        // ony update when the 
+        Game game = data.game; 
+        
+        if(data.menu == MENU_STATE.PIECE_SELECTED) {
+            game.move(data.startPos, xPos, yPos);
+            data.menu = MENU_STATE.NEW_POS_SELECTED;
+            
+        } else {
+        
+            data.startPos = game.getSquare(xPos, yPos);
+            System.out.println(data.startPos.getPiece().getRank());
+            data.menu = MENU_STATE.PIECE_SELECTED;
+        }
+        
+        data.setMoveHistory(game.moveHistory);
+        data.game = game;
+        
+            System.out.println(data.moveHistory+"\n");
+            System.out.println(data.moveHistoryHTML +"\n");
+        
+        this.setChanged();
+        this.notifyObservers(this.data);
+        
+        //data.game.move(bSquare, xPos, yPos);
+    }
     
     
    // public void gameSetup() 
