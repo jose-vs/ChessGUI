@@ -27,7 +27,7 @@ public class BishopTest {
         game.gameBoard.board[2][2].setPiece(bishop);
         BoardSquare start = game.gameBoard.board[2][2];
 
-        game.moveTwo(start, 4, 4); //move diagonal
+        game.move(start, 4, 4); //move diagonal
 
         assertEquals(bishop,game.gameBoard.board[4][4].getPiece());
     }
