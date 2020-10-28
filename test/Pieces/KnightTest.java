@@ -30,7 +30,7 @@ public class KnightTest {
         System.out.println("\nMOVE KNIGHT");
         System.out.println(game.gameBoard.toString());
        
-        game.moveTwo(start, 2, 5); //up 2, left 1
+        game.move(start, 2, 5); //up 2, left 1
         
         System.out.println("MOVED KNIGHT\n");
         System.out.println(game.gameBoard.toString());
@@ -50,7 +50,7 @@ public class KnightTest {
         System.out.println("\nMOVE KNIGHT");
         System.out.println(game.gameBoard.toString());
        
-        game.moveTwo(start, 4, 3); //right 2, up 1
+        game.move(start, 4, 3); //right 2, up 1
         
         System.out.println("MOVED KNIGHT\n");
         System.out.println(game.gameBoard.toString());
@@ -71,7 +71,7 @@ public class KnightTest {
         System.out.println("\nMOVE KNIGHT");
         System.out.println(game.gameBoard.toString());
 
-        game.moveTwo(start, 2, 2);
+        game.move(start, 2, 2);
         
         System.out.println("MOVED KNIGHT\n");
         System.out.println(game.gameBoard.toString());
