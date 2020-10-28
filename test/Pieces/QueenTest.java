@@ -89,7 +89,7 @@ public class QueenTest {
         System.out.println("\nMOVE DIAGONAL");
         System.out.println(game.gameBoard.toString());
         
-        game.moveTwo(start, 6, 5); //move diagonal
+        game.move(start, 6, 5); //move diagonal
         System.out.println("MOVED DIAGONALLY\n");
         System.out.println(game.gameBoard.toString());
      
