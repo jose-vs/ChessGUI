@@ -28,7 +28,7 @@ public class KingTest {
         game.gameBoard.board[2][2].setPiece(king);
         BoardSquare start = game.gameBoard.board[2][2];
         
-        game.moveTwo(start, 2, 3); //up 1
+        game.move(start, 2, 3); //up 1
         
         assertEquals(king, game.gameBoard.board[3][2].getPiece());
     }
@@ -42,7 +42,7 @@ public class KingTest {
         game.gameBoard.board[2][2].setPiece(king);
         BoardSquare start = game.gameBoard.board[2][2];
         
-        game.moveTwo(start, 1, 2); //left 1
+        game.move(start, 1, 2); //left 1
         
         assertEquals(king, game.gameBoard.board[2][1].getPiece());
     }   
@@ -56,7 +56,7 @@ public class KingTest {
         game.gameBoard.board[2][2].setPiece(king);
         BoardSquare start = game.gameBoard.board[2][2];
         
-        game.moveTwo(start, 3, 2); //right one
+        game.move(start, 3, 2); //right one
         
         assertEquals(king, game.gameBoard.board[2][3].getPiece());
     }   
@@ -69,7 +69,7 @@ public class KingTest {
         game.gameBoard.board[2][2].setPiece(king);
         BoardSquare start = game.gameBoard.board[2][2];
 
-        game.moveTwo(start, 3, 3); //move diagonal
+        game.move(start, 3, 3); //move diagonal
 
         assertEquals(king,game.gameBoard.board[3][3].getPiece());
     }
