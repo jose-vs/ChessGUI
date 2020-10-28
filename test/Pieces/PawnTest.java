@@ -35,7 +35,7 @@ public class PawnTest {
     {
        Game game = new Game();
        BoardSquare pawn = game.gameBoard.board[1][0];
-       game.moveTwo(pawn, 0, 2); //move up by one
+       game.move(pawn, 0, 2); //move up by one
        BoardSquare moved = game.gameBoard.board[2][0];
        System.out.println(game.gameBoard.toString());
        
@@ -49,7 +49,7 @@ public class PawnTest {
        BoardSquare pawn = game.gameBoard.board[1][0];
        System.out.println(game.gameBoard.toString());
         
-       game.moveTwo(pawn, 0, 3); //move up by two
+       game.move(pawn, 0, 3); //move up by two
        BoardSquare moved = game.gameBoard.board[3][0];
        System.out.println(game.gameBoard.toString());
        
@@ -69,7 +69,7 @@ public class PawnTest {
        System.out.println("\nMOVE TO CAPTURE");
        System.out.println(game.gameBoard.toString());
        
-       game.moveTwo(start, 4, 3); //move to enemy pawn position
+       game.move(start, 4, 3); //move to enemy pawn position
        
        System.out.println("CAPTURED\n");
        System.out.println(game.gameBoard.toString());
