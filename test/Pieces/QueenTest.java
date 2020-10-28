@@ -49,7 +49,7 @@ public class QueenTest {
          System.out.println("\nMOVE VERTICAL");
          System.out.println(game.gameBoard.toString());
          
-         game.moveTwo(start, 3, 5);
+         game.move(start, 3, 5);
          System.out.println("MOVED VERTICAL\n");
          System.out.println(game.gameBoard.toString());
          
@@ -72,7 +72,7 @@ public class QueenTest {
         System.out.println("\nMOVE HORIZONTAL");
         System.out.println(game.gameBoard.toString());
         
-        game.moveTwo(start, 6, 2); //move right by three
+        game.move(start, 6, 2); //move right by three
         System.out.println("MOVED HORIZONTAL\n");
         System.out.println(game.gameBoard.toString());
      
