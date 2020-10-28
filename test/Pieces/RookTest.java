@@ -46,7 +46,7 @@ public class RookTest {
          System.out.println("\nMOVE VERTICAL");
          System.out.println(game.gameBoard.toString());
          
-         game.moveTwo(start, 3, 5);
+         game.move(start, 3, 5);
          System.out.println("MOVED VERTICAL\n");
          System.out.println(game.gameBoard.toString());
          
@@ -69,7 +69,7 @@ public class RookTest {
         System.out.println("\nMOVE HORIZONTAL");
         System.out.println(game.gameBoard.toString());
         
-        game.moveTwo(start, 6, 2); //move right by three
+        game.move(start, 6, 2); //move right by three
         System.out.println("MOVED HORIZONTAL\n");
         System.out.println(game.gameBoard.toString());
      
@@ -101,6 +101,6 @@ public class RookTest {
         game.gameBoard.board[0][3].setPiece(rook);
         BoardSquare start = game.gameBoard.board[0][3];
        
-        game.moveTwo(start, -1, 3);
+        game.move(start, -1, 3);
     }
 }
