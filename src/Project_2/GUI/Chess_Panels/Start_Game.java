@@ -44,7 +44,7 @@ public class Start_Game extends JPanel implements Observer{
     public Chess_Square_Button[][] board;
     
     public JLabel moveHistory, moveHistoryTitle, playerTurn; 
-    public JButton save, exit; 
+    public JButton save, back; 
     
     public Start_Game() { 
         board = new Chess_Square_Button[8][8];
@@ -73,9 +73,9 @@ public class Start_Game extends JPanel implements Observer{
         save.setBounds(630,585,140,25);
         add(save); 
         
-        exit = new JButton("Exit"); 
-        exit.setBounds(800,585,140,25);
-        add(exit);
+        back = new JButton("Back"); 
+        back.setBounds(800,585,140,25);
+        back(exit);
         
         
         setLayout(null);
