@@ -18,7 +18,8 @@ public class Game_Select_Menu extends JPanel implements Observer {
 
     public JButton continueGame, newGame, back, mHistory_but, exit, start;
     public JList games; 
-    public JLabel welcomeUser, pastGames, mHistory_title, moveHistory;
+    public JLabel welcomeUser, pastGames, mHistory_title;
+    public JTextArea moveHistory;
     public JTextField newGameName; // this will be the game ID
     
     public Game_Select_Menu(){
@@ -54,7 +55,7 @@ public class Game_Select_Menu extends JPanel implements Observer {
         mHistory_but.setBounds(100,350, 120,25);
         add(mHistory_but);
         
-        moveHistory = new JLabel(); 
+        moveHistory = new JTextArea(); 
         moveHistory.setBounds(500,160,720,100);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(255,255,255));
@@ -114,9 +115,10 @@ public class Game_Select_Menu extends JPanel implements Observer {
                 
                 break;
                 
-            case MOVE_HISTORY :
+            case MOVE_HISTORY 
+		moveHistory.setVisible(true);
                 moveHistory.setText(data.moveHistoryHTML);
-                moveHistory.setVisible(true);
+             
                 break;
         }
 
