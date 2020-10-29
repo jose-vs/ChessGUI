@@ -2,7 +2,9 @@ package Game;
 
 import org.junit.Test;
 /**
- *
+ * This class contains tests that check whether or not the
+ * Game board is set up correctly with the right pieces
+ * 
  * @author David Anderson 19065861
  * @author Jose Santos 17993442
  */
@@ -13,6 +15,9 @@ public class BoardTest {
     
     /**
      * Test of setPlayerBlack method, of class Board.
+     * 
+     * @author David Anderson 19065861
+     * @author Jose Santos 17993442
      */
     @Test
     public void testSetPlayerBlack(){
@@ -27,6 +32,15 @@ public class BoardTest {
         testHelp(6, game.gameBoard);
     }
     
+    /**
+     * Method that takes in a row and a board object that helps to test
+     * 
+     * @param row  an integer that contains the row to search through
+     * @param board a board object that contains the pieces and squares
+     * 
+     * @author David Anderson 19065861
+     * @author Jose Santos 17993442
+     */
     public void testHelp(int row, Board board)
     {
            for (int column = 0; column < 8; column++)
@@ -37,6 +51,9 @@ public class BoardTest {
     
     /**
      * Test of setPlayerWhite method, of class Board.
+     * 
+     * @author David Anderson 19065861
+     * @author Jose Santos 17993442
      */
     @Test
     public void testSetPlayerWhite() {
