@@ -52,13 +52,13 @@ public class Start_Game extends JPanel implements Observer{
         
         //FIX
         moveHistory = new JLabel(); 
-        moveHistory.setBounds(630,50,310,100);
+        moveHistory.setBounds(630,60,310,100);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(70,70,70));
         add(moveHistory);
         
         moveHistoryTitle = new JLabel("Move History"); 
-        moveHistoryTitle.setBounds(630,50,100,50);
+        moveHistoryTitle.setBounds(630,40,100,50);
         moveHistoryTitle.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistoryTitle.setForeground(new Color(50,50,50));
         add(moveHistoryTitle);
