@@ -43,6 +43,7 @@ public class GS_Controller implements ActionListener {
                 break;
             case "Move History" : 
                 model.getMoveHistory();
+                
                 break; 
             case "New Game" : 
                 model.startNewGame(null);

@@ -59,7 +59,11 @@ public class Chess_Model extends Observable {
     }
     
     public void getMoveHistory() { 
-        this.data = this.db.getMoveHistory(data, username);
+        
+        System.out.println(this.username);
+        System.out.println(this.gameID);
+        
+        this.data = this.db.getMoveHistory(gameID, username, this.data);
         this.data.menu = MENU_STATE.MOVE_HISTORY;
         
         this.setChanged(); 
@@ -129,6 +133,7 @@ public class Chess_Model extends Observable {
             case PIECE_SELECTED :
             case NEW_POS_SELECTED :
             case START_GAME : 
+                this.data.setMoveHistory(data.game.moveHistory);
                 this.data.menu = MENU_STATE.GAME_SELECT_MENU;
             
         }
@@ -146,32 +151,37 @@ public class Chess_Model extends Observable {
     
     public void movePiece(int xPos, int yPos) { 
         
-        // ony update when the 
-        Game game = data.game; 
+        System.out.println(data.game.player1.isLoser);
+        System.out.println(data.game.player2.isLoser);
         
-        if(data.menu == MENU_STATE.PIECE_SELECTED) {
-            game.move(data.startPos, xPos, yPos);
-            data.menu = MENU_STATE.NEW_POS_SELECTED;
-            System.out.println(game.gameBoard.toString());
-        } else {
+        if(!data.game.player1.isLoser && !data.game.player2.isLoser ) {
+            if(data.menu == MENU_STATE.PIECE_SELECTED ) {
+
+                try { 
+
+                    data.game.move(data.startPos, xPos, yPos);
+
+                } catch (NullPointerException e) { 
+
+                        System.err.println("No piece selected");
+                } 
+
+                data.menu = MENU_STATE.START_GAME;
+                System.out.println(data.game.gameBoard.toString());
+
+            } else {
+
+                data.startPos = data.game.getSquare(xPos, yPos);
+                data.menu = MENU_STATE.PIECE_SELECTED;
+            }
+            
+            data.setMoveHistory(data.game.moveHistory);
         
-            data.startPos = game.getSquare(xPos, yPos);
-            data.menu = MENU_STATE.PIECE_SELECTED;
+            this.setChanged();
+            this.notifyObservers(this.data);
+  
         }
-        
-        data.setMoveHistory(game.moveHistory);
-        data.game = game;
-        
-        this.setChanged();
-        this.notifyObservers(this.data);
-        
-        //data.game.move(bSquare, xPos, yPos);
+ 
     }
-    
-    
-   // public void gameSetup() 
-    
-    
-    
-    
+   
 }

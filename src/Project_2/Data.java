@@ -27,6 +27,7 @@ public class Data {
     public Data() { 
         menu = MENU_STATE.START_MENU;
         
+        
         storedGames = new ArrayList<>();
         game = new Game();
     }

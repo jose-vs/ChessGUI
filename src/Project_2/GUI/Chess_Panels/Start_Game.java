@@ -52,7 +52,7 @@ public class Start_Game extends JPanel implements Observer{
         
         //FIX
         moveHistory = new JLabel(); 
-        moveHistory.setBounds(630,60,310,100);
+        moveHistory.setBounds(640,70,310,100);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(70,70,70));
         add(moveHistory);
@@ -63,7 +63,7 @@ public class Start_Game extends JPanel implements Observer{
         moveHistoryTitle.setForeground(new Color(50,50,50));
         add(moveHistoryTitle);
         
-        playerTurn = new JLabel("HI"); 
+        playerTurn = new JLabel(); 
         playerTurn.setBounds(100,615,200,50); 
         playerTurn.setFont(new Font("Arial", Font.BOLD, 16));
         playerTurn.setForeground(new Color(254,254,254));

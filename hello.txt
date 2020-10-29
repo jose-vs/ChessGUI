@@ -1,0 +1,12 @@
+@Board
+8 [   BROOK ] [ BKNIGHT ] [ BBISHOP ] [  BQUEEN ] [   BKING ] [ BBISHOP ] [ BKNIGHT ] [   BROOK ] 
+7 [   BPAWN ] [   BPAWN ] [   BPAWN ] [ _______ ] [   BPAWN ] [   BPAWN ] [   BPAWN ] [   BPAWN ] 
+6 [ _______ ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] 
+5 [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [   BPAWN ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] 
+4 [ _______ ] [ xxxxxxx ] [   WPAWN ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] 
+3 [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] [ xxxxxxx ] [ _______ ] 
+2 [   WPAWN ] [   WPAWN ] [ _______ ] [   WPAWN ] [   WPAWN ] [   WPAWN ] [   WPAWN ] [   WPAWN ] 
+1 [   WROOK ] [ WKNIGHT ] [ WBISHOP ] [  WQUEEN ] [   WKING ] [ WBISHOP ] [ WKNIGHT ] [   WROOK ] 
+    A           B           C           D           E           F           G           H           
+@Move_History
+1.       C4      D5

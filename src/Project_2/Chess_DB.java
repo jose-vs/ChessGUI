@@ -74,15 +74,6 @@ public class Chess_DB {
         }
     }
     
-    
-    /*
-    
-    TODO: 
-    
-        CREATE A METHOD TO CHECK IF THE USER EXISTS IN THE DATABASE
-        CREATE A METHOD TO CHECK FOR ALL GAMES STORED IN THE DATABASE
-    */
-    
     public Data validateUser(String username, String password) { 
         /*
             if user is not found, ask the user if the they want to create a new user
@@ -100,11 +91,11 @@ public class Chess_DB {
                 String pass = rs.getString("userPassword"); 
                 System.out.println("user found");
                 
-                if(password.equals(pass)) { 
+                if(password.equals(pass))  
                     data.menu = MENU_STATE.LOGGED_IN;
-                } else { 
+                else  
                     data.menu = MENU_STATE.LOG_IN_FAILED;
-                }
+                
                 
             } else { 
                 
@@ -176,8 +167,7 @@ public class Chess_DB {
         return data_update;
     }
     
-    public Data getMoveHistory(Data data, String username) { 
-        System.out.println("reached getMatchHistory");
+    public Data getMoveHistory(String gameID, String username, Data data) { 
 
         Scanner reader;
         File gameFile;
@@ -187,7 +177,7 @@ public class Chess_DB {
             Statement statement = conn.createStatement(); 
             ResultSet rst = statement.executeQuery(
                 "SELECT gameID FROM C_GAME WHERE username = '" +username+ "' AND "
-                        + "gameID = '" +data.gameID+"'");
+                        + "gameID = '" +gameID+"'");
             
             try {
                     
@@ -200,7 +190,9 @@ public class Chess_DB {
                         fileString += reader.nextLine() + "\n"; 
                     String[] gameInfo = fileString.split("@");
                     
-                    data.moveHistory = gameInfo[2].substring(gameInfo[2].indexOf('\n')+1);
+                    System.out.println(gameInfo[2].substring(gameInfo[2].indexOf('\n')+1));
+                    
+                    data.setMoveHistory(gameInfo[2].substring(gameInfo[2].indexOf('\n')+1));
                 }
       
             }catch (IOException o) {
@@ -286,9 +278,7 @@ public class Chess_DB {
                     int yPos = 7; 
                     int xPos = 0;
                     
-                    
-                    
-                    
+
                     for (int x = 1; x <= 8; x++) {
 
                         //the row split up into substrings representing each square and what's contained within them
@@ -328,20 +318,13 @@ public class Chess_DB {
                     
                     //Initialized Board
 		Board initBoard = new Board(initBoardSquare);
-               
-                System.out.println(rst.getString("isFinished"));
-                System.out.println(rst.getString("datePlayed"));
                 
                 String moveHistory = gameInfo[2].substring(gameInfo[2].indexOf('\n')+1);
                 int gameTurns = moveHistory.split("\n").length;
         
                 String gameStateCompare = rst.getString("isFinished");
-                System.out.println(gameStateCompare.equals("Yes"));
-                System.out.println(gameStateCompare.equals("No"));
                 
                 if (gameStateCompare.equals("Yes")) {
-                    
-                    System.out.println("Hi1");
                     
                     if(rst.getString("winner").equals("White")) 
                         player2.isLoser = true; 
@@ -350,24 +333,19 @@ public class Chess_DB {
                     
                 } else { 
                     
-                    System.out.println("Hi2");
-
                     if (rst.getString("playerTurn").equals("White"))
 			player1.isTurn = true;
                         
                     else if (rst.getString("playerTurn").equals("Black"))
 			player2.isTurn = true;
                 }
-                
-         
-                
+
                 initGame = new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
                     
                 
                 } catch (IOException e) { 
                     System.err.println("cant find game");
                 }
-               
             }
 
         } catch(SQLException e) { 
@@ -512,9 +490,5 @@ public class Chess_DB {
      * if the txt file cannot be found then delete
      * the game from the database 
      */
-    
-    
-    
-    
-    
+
 }

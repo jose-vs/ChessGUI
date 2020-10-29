@@ -214,10 +214,19 @@ public class Game {
         public void move(BoardSquare bSquare, int xDes, int yDes) { 
             
             String newPiecePos = String.valueOf((char)(xDes+65))+(char)(yDes+49);
+            this.isCapture = false;
+            System.out.println("Hello");
 
-            int[][] path = bSquare.getPiece().drawMove(bSquare.getxPos(), bSquare.getyPos(), xDes, yDes);
+            BoardSquare yeye = bSquare; 
+            Piece piece = bSquare.getPiece(); 
+            int[][] path = piece.drawMove(bSquare.getxPos(), bSquare.getyPos(), xDes, yDes);
+            
+               // int[][] path = bSquare.getPiece().drawMove(bSquare.getxPos(), bSquare.getyPos(), xDes, yDes);
 
+                
 		try {
+                    
+                   
 
 			// checks if the move is valid
                     if ((inBoundary(xDes, yDes) && hasMoved(bSquare, xDes, yDes) && isValidEndPoint(bSquare, xDes, yDes) &&
@@ -235,7 +244,7 @@ public class Game {
 
 		} catch(MoveOutOfBoundsException | IllegalLeapingException |
                     InvalidEndPointException | PieceHasNotMovedException |
-                    InvalidPathException | NotPlayersTurnException | NullPointerException e) {
+                    InvalidPathException | NotPlayersTurnException e) {
 
 			//e.printStackTrace();
 		}

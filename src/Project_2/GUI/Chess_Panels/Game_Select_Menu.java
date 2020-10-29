@@ -60,6 +60,7 @@ public class Game_Select_Menu extends JPanel implements Observer {
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(255,255,255));
         moveHistory.setBackground(new Color(70,70,70));
+        moveHistory.setEditable(false);
         add(moveHistory);
 
         mHistory_title = new JLabel("Move History");
@@ -94,6 +95,7 @@ public class Game_Select_Menu extends JPanel implements Observer {
             case GAME_SELECT_MENU:
 
                 games.setListData(data.storedGames.toArray());
+                moveHistory.setText(data.moveHistory);
                 moveHistory.setVisible(false);
                 newGameName.setVisible(false);
                 start.setVisible(false);
@@ -113,9 +115,10 @@ public class Game_Select_Menu extends JPanel implements Observer {
 
                 break;
 
-            case MOVE_HISTORY
-		            moveHistory.setVisible(true);
-                moveHistory.setText(data.moveHistoryHTML);
+            case MOVE_HISTORY :
+		moveHistory.setVisible(true);
+               
+                moveHistory.setText(data.moveHistory);
 
                 break;
         }

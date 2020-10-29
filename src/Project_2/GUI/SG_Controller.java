@@ -32,6 +32,8 @@ public class SG_Controller implements ActionListener {
 
             }
         }
+        
+        
 
 
     }
@@ -54,20 +56,13 @@ public class SG_Controller implements ActionListener {
                 case "Save" :
 
                     model.saveGame();
-
                     break;
 
                 case "Exit" :
+                    
                     model.back(model.data);
                     break;
             }
-
         }
-
-
-
-
-
     }
-
 }
