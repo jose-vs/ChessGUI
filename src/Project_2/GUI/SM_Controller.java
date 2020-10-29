@@ -26,6 +26,7 @@ public class SM_Controller implements ActionListener{
         this.sm.new_user.addActionListener(this);
         this.sm.back.addActionListener(this);
         this.sm.create_user.addActionListener(this);
+        this.sm.exit.addActionListener(this);
     }
     
     @Override
@@ -51,7 +52,7 @@ public class SM_Controller implements ActionListener{
                     break;
                 } 
             case "Exit":
-                //LEAVE THE GAME
+                System.exit(0);
                 break;
             case "Back":
                 model.back(model.data);

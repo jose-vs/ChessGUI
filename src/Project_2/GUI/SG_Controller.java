@@ -15,59 +15,59 @@ import javax.swing.JButton;
  * @author Jose
  */
 public class SG_Controller implements ActionListener {
-    
-    Start_Game sg; 
+
+    Start_Game sg;
     Chess_Model model;
-    
-    public SG_Controller (Start_Game sg, Chess_Model model) { 
-        this.sg = sg; 
+
+    public SG_Controller (Start_Game sg, Chess_Model model) {
+        this.sg = sg;
         this.model = model;
-        
+
         sg.save.addActionListener(this);
         sg.exit.addActionListener(this);
-        
-        for (Chess_Square_Button[] row : this.sg.board) { 
-            for (Chess_Square_Button col : row) { 
+
+        for (Chess_Square_Button[] row : this.sg.board) {
+            for (Chess_Square_Button col : row) {
                 col.addActionListener(this);
-                
+
             }
         }
-        
-        
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         if (e.getSource() instanceof Chess_Square_Button) {
-           
-            Chess_Square_Button spot = (Chess_Square_Button)e.getSource(); 
+
+            Chess_Square_Button spot = (Chess_Square_Button)e.getSource();
             System.out.println(spot.getxCoordinate()+" X : "+spot.getyCoordinate()+" Y");
             model.movePiece(spot.getxCoordinate(), spot.getyCoordinate());
-           
+
         } else {
-            
-            String command = e.getActionCommand(); 
-        
-            switch (command) { 
-                
+
+            String command = e.getActionCommand();
+
+            switch (command) {
+
                 case "Save" :
-                    
+
                     model.saveGame();
-                    
-                    break; 
-                    
-                case "Exit" : 
+
+                    break;
+
+                case "Exit" :
                     model.back(model.data);
                     break;
             }
-            
+
         }
-        
-        
-        
-        
-        
+
+
+
+
+
     }
-    
+
 }
