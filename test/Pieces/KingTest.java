@@ -6,19 +6,22 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * This class contains tests that relate to the Bishop Piece
  *
- * @author David
+ * @author Jose Santos 17993442
+ * @author David Anderson 19065861
  */
 public class KingTest {
     
     public KingTest() {
     }
 
-    /**
-     * Test of isValidPath method, of class King.
-     * @throws java.lang.Exception
-     */
-  
+  /**
+    * This method tests the upwards movement of the King Piece
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
    @Test
     public void testKingMoveUp() throws Exception
     {
@@ -32,7 +35,12 @@ public class KingTest {
         
         assertEquals(king, game.gameBoard.board[3][2].getPiece());
     }
-    
+   /**
+    * This method tests the Left movement of the King Piece
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test
     public void testKingMoveleft() throws Exception
     {
@@ -46,7 +54,12 @@ public class KingTest {
         
         assertEquals(king, game.gameBoard.board[2][1].getPiece());
     }   
-     
+   /**
+    * This method tests the Right movement of the King Piece
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test
     public void testKingMoveRight() throws Exception
     {
@@ -60,7 +73,12 @@ public class KingTest {
         
         assertEquals(king, game.gameBoard.board[2][3].getPiece());
     }   
-    
+   /**
+    * This method tests the Diagonal movement of the King Piece
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test
     public void testKingDiagonal() throws Exception
     {
@@ -73,7 +91,15 @@ public class KingTest {
 
         assertEquals(king,game.gameBoard.board[3][3].getPiece());
     }
-    
+   /**
+    * This method tests if the movement of the King Piece into
+    * an invalid end point throws the correct exception
+    * 
+    * @exception InvalidEndPointException 
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test(expected = InvalidEndPointException.class)
     public void testInvalidEndPoint() throws Exception
     {

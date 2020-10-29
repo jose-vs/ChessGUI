@@ -1,24 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Pieces;
 
-import Exception.*;
 import Game.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author David
+ * This class contains tests that relate to the Bishop Piece
+ * 
+ * @author Jose Santos 17993442
+ * @author David Anderson 19065861
  */
 public class BishopTest {
     
     public BishopTest() {
     }
 
+    
+ /**
+  * This method tests the Diagonal movement of the Bishop Piece
+  * 
+  * @author Jose Santos 17993442
+  * @author David Anderson 19065861
+  */
    @Test
     public void testBishopDiagonal() throws Exception
     {

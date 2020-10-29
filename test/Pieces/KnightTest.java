@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Pieces;
 
 import Game.*;
@@ -10,14 +5,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * This class contains tests that relate to the Knight Piece
  *
- * @author David
+ * @author Jose Santos 17993442
+ * @author David Anderson 19065861
  */
 public class KnightTest {
     
     public KnightTest() {
     }
- 
+   /**
+    * This method tests the upwards movement of the Knight Piece
+    * 
+    * @throws Exception
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test
     public void knightMoveUp() throws Exception
     {
@@ -37,7 +41,14 @@ public class KnightTest {
         
         assertEquals(knight, game.gameBoard.board[5][2].getPiece());
     }
-    
+   /**
+    * This method tests the Across movement of the Knight Piece
+    * 
+    * @throws Exception
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test
     public void knightAcross() throws Exception
     {
@@ -58,6 +69,15 @@ public class KnightTest {
         assertEquals(knight, game.gameBoard.board[3][4].getPiece());
     }
     
+    
+      /**
+    * This method tests the leaping movement of the Knight Piece
+    * 
+    * @throws Exception
+    * 
+    * @author Jose Santos 17993442
+    * @author David Anderson 19065861
+    */
     @Test
     public void testLeaping() throws Exception
     {

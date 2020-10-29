@@ -7,9 +7,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * This class contains tests that relate to the Queen Piece
  *
- *  @author David Anderson 19065861
- *  @author Jose Santos 17993442
+ * @author Jose Santos 17993442
+ * @author David Anderson 19065861
  */
 public class QueenTest {
     
@@ -19,6 +20,7 @@ public class QueenTest {
      * Test of isValidPath method, of class Queen.
      * @throws Exception.InvalidPathException An exception that prints out relevant information if User enters invalid path.
      * 
+     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -37,6 +39,7 @@ public class QueenTest {
      * Test of Queens Vertical Movement
      * @throws Exception
      * 
+     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -60,6 +63,7 @@ public class QueenTest {
      * Test of Queens Horizontal Movement
      * @throws Exception
      * 
+     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -78,7 +82,13 @@ public class QueenTest {
      
         assertEquals(queen,game.gameBoard.board[2][6].getPiece());
     }
-    
+    /**
+     * Test of Queens Diagonal Movement
+     * @throws Exception
+     * 
+     * @author Jose Santos 17993442
+     * @author David Anderson 19065861
+     */
     @Test
     public void testDiagonalMovement() throws Exception {
         Game game = new Game();
@@ -95,7 +105,15 @@ public class QueenTest {
      
         assertEquals(queen,game.gameBoard.board[5][6].getPiece());
     }
-    
+    /**
+     * Test of Queens Movement to an Invalid point
+     * 
+     * @throws Exception
+     * @expected InvalidEndPointException
+     * 
+     * @author Jose Santos 17993442
+     * @author David Anderson 19065861
+     */
     @Test(expected = InvalidEndPointException.class)
     public void testInvalidEndPoint() throws Exception
     {
