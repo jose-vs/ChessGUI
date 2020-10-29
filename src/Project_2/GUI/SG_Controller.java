@@ -24,6 +24,7 @@ public class SG_Controller implements ActionListener {
         this.model = model;
         
         sg.save.addActionListener(this);
+        sg.exit.addActionListener(this);
         
         for (Chess_Square_Button[] row : this.sg.board) { 
             for (Chess_Square_Button col : row) { 
@@ -56,6 +57,7 @@ public class SG_Controller implements ActionListener {
                     break; 
                     
                 case "Exit" : 
+                    System.exit(0);
                     break;
             }
             
