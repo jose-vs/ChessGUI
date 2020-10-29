@@ -86,8 +86,7 @@ public class Game_Select_Menu extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         
         Data data = (Data) arg; 
-        
-        //System.out.println("GAME SELECT MENU STATE: "+data.menu);
+       
         
         switch (data.menu) {
             
@@ -107,13 +106,8 @@ public class Game_Select_Menu extends JPanel implements Observer {
                 newGame.setVisible(false);
                 newGameName.setVisible(true);
                 start.setVisible(true);
-                
                 break;
-                
-            case START_GAME :
-                
-                break;
-                
+
             case MOVE_HISTORY :
                 moveHistory.setText(data.moveHistoryHTML);
                 moveHistory.setVisible(true);

@@ -8,6 +8,8 @@ package Project_2.GUI;
 import Game.*;
 import Project_2.Data;
 import Project_2.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
 
 /**
@@ -20,6 +22,7 @@ public class Chess_Model extends Observable {
     public Data data = new Data(); 
     
     public String username;
+    public String gameID;
    
     public Chess_Model() { 
         this.db = new Chess_DB(); 
@@ -59,7 +62,6 @@ public class Chess_Model extends Observable {
         this.data = this.db.getMoveHistory(data, username);
         this.data.menu = MENU_STATE.MOVE_HISTORY;
         
-        System.out.println(this.data.moveHistory);
         this.setChanged(); 
         this.notifyObservers(this.data);
     }
@@ -69,19 +71,37 @@ public class Chess_Model extends Observable {
             this.data.menu = MENU_STATE.NEW_GAME;
         else { 
             this.data.menu = MENU_STATE.START_GAME;
-            this.data.gameID = gameID;
+            this.gameID = gameID;
             this.data.setMoveHistory("");
             this.data.createNewGame();
-            System.out.println("NEW GAME CREATED " + gameID);
+            
+            System.out.println("NEW GAME CREATED " + gameID +" \nat username: " + this.username );
         }
         
         this.setChanged(); 
         this.notifyObservers(this.data);
     }
     
-    public void saveGame(){ 
-        System.out.println(this.username);
-       this.db.insertGametoDB(username, this.data.gameID);
+    public void continueGame() { 
+        Game game = this.db.loadGame(this.gameID, this.username);
+        this.data.setMoveHistory(game.moveHistory);
+        this.data.game = game; 
+        this.data.menu = MENU_STATE.START_GAME;
+        
+        this.setChanged(); 
+        this.notifyObservers(this.data);       
+    }
+    
+    public void saveGame(){
+        
+       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+       Date date = new Date(); 
+       this.data.game.datePlayed = formatter.format(date);      
+       this.db.insertGametoDB(username, this.gameID, this.data.game);
+       
+       this.setChanged(); 
+       this.notifyObservers(this.data); // changed?
+       
     }
     
     
@@ -106,6 +126,10 @@ public class Chess_Model extends Observable {
             case NEW_GAME:
                 this.data.menu = MENU_STATE.GAME_SELECT_MENU;
                 break;
+            case PIECE_SELECTED :
+            case NEW_POS_SELECTED :
+            case START_GAME : 
+                this.data.menu = MENU_STATE.GAME_SELECT_MENU;
             
         }
         
@@ -113,10 +137,11 @@ public class Chess_Model extends Observable {
         this.notifyObservers(this.data);
     }
     
-    public void getGameID(String gameID) { 
-        this.data.gameID = gameID;
-        this.setChanged();
-        this.notifyObservers(this.data);
+    public void getGame(String gameID) { 
+      
+        this.gameID = gameID; 
+        System.out.println(gameID);
+        
     }
     
     public void movePiece(int xPos, int yPos) { 
@@ -127,19 +152,15 @@ public class Chess_Model extends Observable {
         if(data.menu == MENU_STATE.PIECE_SELECTED) {
             game.move(data.startPos, xPos, yPos);
             data.menu = MENU_STATE.NEW_POS_SELECTED;
-            
+            System.out.println(game.gameBoard.toString());
         } else {
         
             data.startPos = game.getSquare(xPos, yPos);
-            System.out.println(data.startPos.getPiece().getRank());
             data.menu = MENU_STATE.PIECE_SELECTED;
         }
         
         data.setMoveHistory(game.moveHistory);
         data.game = game;
-        
-            System.out.println(data.moveHistory+"\n");
-            System.out.println(data.moveHistoryHTML +"\n");
         
         this.setChanged();
         this.notifyObservers(this.data);

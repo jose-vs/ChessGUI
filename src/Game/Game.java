@@ -206,7 +206,7 @@ public class Game {
 				InvalidEndPointException | PieceHasNotMovedException |
 				InvalidPathException | NotPlayersTurnException e) {
 
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}
@@ -235,9 +235,9 @@ public class Game {
 
 		} catch(MoveOutOfBoundsException | IllegalLeapingException |
                     InvalidEndPointException | PieceHasNotMovedException |
-                    InvalidPathException | NotPlayersTurnException e) {
+                    InvalidPathException | NotPlayersTurnException | NullPointerException e) {
 
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
         }
 

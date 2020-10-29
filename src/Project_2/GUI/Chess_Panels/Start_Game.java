@@ -43,7 +43,7 @@ public class Start_Game extends JPanel implements Observer{
     
     public Chess_Square_Button[][] board;
     
-    public JLabel moveHistory; 
+    public JLabel moveHistory, moveHistoryTitle, playerTurn; 
     public JButton save, exit; 
     
     public Start_Game() { 
@@ -55,8 +55,19 @@ public class Start_Game extends JPanel implements Observer{
         moveHistory.setBounds(630,50,310,100);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(70,70,70));
-        moveHistory.setBackground(new Color(254,254,254));
         add(moveHistory);
+        
+        moveHistoryTitle = new JLabel("Move History"); 
+        moveHistoryTitle.setBounds(630,50,100,50);
+        moveHistoryTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        moveHistoryTitle.setForeground(new Color(50,50,50));
+        add(moveHistoryTitle);
+        
+        playerTurn = new JLabel("HI"); 
+        playerTurn.setBounds(100,615,200,50); 
+        playerTurn.setFont(new Font("Arial", Font.BOLD, 16));
+        playerTurn.setForeground(new Color(254,254,254));
+        add(playerTurn);
         
         save = new JButton("Save"); 
         save.setBounds(630,585,140,25);
@@ -71,7 +82,6 @@ public class Start_Game extends JPanel implements Observer{
         setPreferredSize(new Dimension(980,720));
         setBackground(new Color(50, 50, 50));
     }
-    
     
     public void  boardSetup() { 
         //[col][row]
@@ -253,13 +263,15 @@ public class Start_Game extends JPanel implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
-        
+
         Data data = (Data) arg;
-   
+        
         updatePieces(data.game);
+  
         this.moveHistory.setText(data.moveHistoryHTML);
-        
-        
+        String playerTurn = data.game.player1.isTurn ? "White to move." : "Black to move.";
+        this.playerTurn.setText(playerTurn);
+   
     }
     
 }

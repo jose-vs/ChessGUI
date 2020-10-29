@@ -29,6 +29,7 @@ public class GS_Controller implements ActionListener {
         gs_menu.games.addListSelectionListener(new GameSelectionListener());
         gs_menu.newGame.addActionListener(this);
         gs_menu.start.addActionListener(this);
+        gs_menu.continueGame.addActionListener(this);
     }
     
     
@@ -51,6 +52,10 @@ public class GS_Controller implements ActionListener {
                         gs_menu.newGameName.getText().replaceAll("\\s+","");
                 model.startNewGame(newGameName);
                 break;
+            case "Continue" : 
+               
+                model.continueGame();
+                break;
                 
         }
             
@@ -65,10 +70,13 @@ public class GS_Controller implements ActionListener {
             //doestn affect the program : must handle 
             
                 String gameID = gs_menu.games.getSelectedValue().toString();
-                model.getGameID(gameID.substring(1).replaceAll("\\s+",""));
+                
+                //System.err.println(gameID +" game ID GS_CONTROLLER");
+                
+                model.getGame(gameID.substring(1).replaceAll("\\s+",""));
                 
             } catch (NullPointerException o) { 
-                 System.err.println("NULL POINTER at GS_CONTROLLER");
+                 //System.err.println("NULL POINTER at GS_CONTROLLER");
             }
         }
     }
@@ -77,3 +85,4 @@ public class GS_Controller implements ActionListener {
     
     
 
+    

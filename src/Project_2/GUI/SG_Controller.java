@@ -24,6 +24,7 @@ public class SG_Controller implements ActionListener {
         this.model = model;
         
         sg.save.addActionListener(this);
+        sg.exit.addActionListener(this);
         
         for (Chess_Square_Button[] row : this.sg.board) { 
             for (Chess_Square_Button col : row) { 
@@ -39,9 +40,10 @@ public class SG_Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
         if (e.getSource() instanceof Chess_Square_Button) {
+           
             Chess_Square_Button spot = (Chess_Square_Button)e.getSource(); 
-   
-           model.movePiece(spot.getxCoordinate(), spot.getyCoordinate());
+            System.out.println(spot.getxCoordinate()+" X : "+spot.getyCoordinate()+" Y");
+            model.movePiece(spot.getxCoordinate(), spot.getyCoordinate());
            
         } else {
             
@@ -56,6 +58,7 @@ public class SG_Controller implements ActionListener {
                     break; 
                     
                 case "Exit" : 
+                    model.back(model.data);
                     break;
             }
             

@@ -13,11 +13,15 @@ import Pieces.Pawn;
 import Pieces.Piece;
 import Pieces.Queen;
 import Pieces.Rook;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,9 +44,7 @@ public class Chess_DB {
             
             conn = DriverManager.getConnection(dbURL, dbUSERNAME, dbPASSWORD); 
             Statement statement = conn.createStatement(); 
-            String userTable = "C_USER"; 
-            String gameTable = "C_GAME"; 
-            
+
             if(!checkTableExisting(userTable)) { 
                 statement.executeUpdate(
                     "CREATE TABLE " +userTable+ " ("
@@ -153,117 +155,23 @@ public class Chess_DB {
                 "SELECT * FROM C_GAME WHERE username = '" +username+ "'");
             
             while (rst.next()) { 
-                
-                try{
-                    
-                    gameFile = new File(rst.getString("gameID")+".txt"); //Games.txt
-                    reader = new Scanner(new FileReader(gameFile));
-                
-                    String fileString = "";
-                    
-                    while (reader.hasNextLine())
-                        fileString += reader.nextLine() + "\n"; 
-                    String[] gameInfo = fileString.split("@");
-                    
-                   /**
-                    * Reading and saving the Board
-                    */
-                    String[] board = gameInfo[1].split("\n");
-                    String[][] boardSquares = new String[8][8];
-                    BoardSquare[][] initBoardSquare = new BoardSquare[8][8];
-                    Player player1 = new Player(Side.WHITE); 
-                    Player player2 = new Player(Side.BLACK);
-                    int yPos = 7; 
-                    int xPos = 0;
-                    
-                   /**
-                    * Creates a 2d String array to easily check what each square on the board contains
-                    */
-                    for (int x = 1; x <= 8; x++) {
 
-                        //the row split up into substrings representing each square and what's contained within them
-                        boardSquares[x-1] = new String[]{board[x].substring(3, 12), board[x].substring(15, 24), board[x].substring(27, 36),
-			board[x].substring(39, 48), board[x].substring(51, 60), board[x].substring(63, 72),
-			board[x].substring(75, 84), board[x].substring(87, 96)};
-                    }
-                    
-                   /**
-                    * Saves the 2d String array of the board from the file into a 2d array of BoardSquare objects
-                    */
-                    for (String[] row: boardSquares) {
-                        for(String bSquare: row) {
-
-                            String square = bSquare.replaceAll("\\s+","").toLowerCase();
-
-                            if (square.charAt(0) == 'w') { // checks if the piece on the current bSquare is white
-
-                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
-
-                                if (this.addPieces(square, player1) != null)
-                                initBoardSquare[yPos][xPos].setPiece(this.addPieces(square, player1));
-
-                            } else if (square.charAt(0) == 'b') { // checks if the piece on the current bSquare is black
-
-                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
-
-                                if (this.addPieces(square, player2) != null)
-                                initBoardSquare[yPos][xPos].setPiece(this.addPieces(square, player2));
-
-                            } else { // if there are no pieces found, create a BoardSquare object without a piece
-                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
-                            }
-                            xPos++;
-			}
-                        yPos--;
-			xPos = 0;
-		}
-
-		//Initialized Board
-		Board initBoard = new Board(initBoardSquare);
-                
-                String moveHistory = gameInfo[2].substring(gameInfo[2].indexOf('\n')+1);
-                int gameTurns = moveHistory.split("\n").length;
-        
-                if (rst.getString("isFinished").equals("Yes")) {
-                    
-                    if(rst.getString("winner").equals("White")) 
-                        player2.isLoser = true; 
-                    else if(rst.getString("winner").equals("Black")) 
-                        player1.isLoser = true; 
-                    
-                } else if (rst.getString("isFinished").equals("No"))  { 
-                    
-                    if (rst.getString("playerTurn").equals("White"))
-			player1.isTurn = true;
-                    else if (rst.getString("playerTurn").equals("Black"))
-			player2.isTurn = true;
-                }
-                
-                Game initGame = new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
-                //u_data.storedGames.add(initGame);
-              
-                
-                //^^Not needed
-                //only need to store the game file and id
-                //once the user selects this game, find the file and load the rest to 
-                //initialize a whole game
-                
-                String gameDesc_txt = rst.getString("isFinished").equals("Yes") ? " " : "*";
-                gameDesc_txt += rst.getString("gameID"); // fix format
+               String gameDesc_txt = rst.getString("isFinished").equals("Yes") ? " " : "*";
+               gameDesc_txt += rst.getString("gameID"); // fix format
              
-                data_update.storedGames.add(gameDesc_txt);
+               data_update.storedGames.add(gameDesc_txt);
                 //data_update.gameID = rst.getString("gameID");
-                data_update.menu = MENU_STATE.GAME_SELECT_MENU;
                 
-                }catch (IOException o) {
-			System.err.println("File Not Found!");
-			
-		}
+                //move this out of the try catch statement
+               // data_update.menu = MENU_STATE.GAME_SELECT_MENU;
+                
+             
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        data_update.menu = MENU_STATE.GAME_SELECT_MENU;
 
         return data_update;
     }
@@ -343,16 +251,205 @@ public class Chess_DB {
 	}
     }
     
-    
-    public void insertGametoDB(String username, String gameID) { 
-
+    public Game loadGame(String gameID, String username) { 
+        Game initGame = null;
+        Scanner reader;
+        File gameFile;
         
-        if (checkGameExists(username, gameID)) { //update
+    
+        
+        try { 
+            String sqlQuery = "SELECT * FROM C_GAME WHERE username = '" +username+ "'"
+                    + "AND gameID = '" +gameID+"'"; 
+            Statement statement = conn.createStatement(); 
+            ResultSet rst = statement.executeQuery(sqlQuery);
             
-        } else { //insert new row
+            if(rst.next()) { 
+                try{ 
+                    
+                    
+                    String fileString = "";
+                    gameFile = new File(rst.getString("gameID")+".txt");
+                    
+                    //System.out.println(rst.getString("gameID"));
+                    reader = new Scanner(new FileReader(gameFile)); 
+                    
+                    while (reader.hasNextLine())
+                        fileString += reader.nextLine() + "\n"; 
+                    String[] gameInfo = fileString.split("@");
+                    
+                    Player player1 = new Player(Side.WHITE); 
+                    Player player2 = new Player(Side.BLACK);
+                    String[] board = gameInfo[1].split("\n");
+                    String[][] boardSquares = new String[8][8];
+                    BoardSquare[][] initBoardSquare = new BoardSquare[8][8];
+                    int yPos = 7; 
+                    int xPos = 0;
+                    
+                    
+                    
+                    
+                    for (int x = 1; x <= 8; x++) {
+
+                        //the row split up into substrings representing each square and what's contained within them
+                        boardSquares[x-1] = new String[]{board[x].substring(3, 12), board[x].substring(15, 24), board[x].substring(27, 36),
+			board[x].substring(39, 48), board[x].substring(51, 60), board[x].substring(63, 72),
+			board[x].substring(75, 84), board[x].substring(87, 96)};
+                    }
+                    
+                
+                    for (String[] row: boardSquares) {
+                        for(String bSquare: row) {
+
+                            String square = bSquare.replaceAll("\\s+","").toLowerCase();
+
+                            if (square.charAt(0) == 'w') { // checks if the piece on the current bSquare is white
+
+                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
+
+                                if (this.addPieces(square, player1) != null)
+                                initBoardSquare[yPos][xPos].setPiece(this.addPieces(square, player1));
+
+                            } else if (square.charAt(0) == 'b') { // checks if the piece on the current bSquare is black
+
+                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
+
+                                if (this.addPieces(square, player2) != null)
+                                initBoardSquare[yPos][xPos].setPiece(this.addPieces(square, player2));
+
+                            } else { // if there are no pieces found, create a BoardSquare object without a piece
+                                initBoardSquare[yPos][xPos] = new BoardSquare(yPos, xPos);
+                            }
+                            xPos++;
+			}
+                        yPos--;
+			xPos = 0;
+                    }
+                    
+                    //Initialized Board
+		Board initBoard = new Board(initBoardSquare);
+               
+                System.out.println(rst.getString("isFinished"));
+                System.out.println(rst.getString("datePlayed"));
+                
+                String moveHistory = gameInfo[2].substring(gameInfo[2].indexOf('\n')+1);
+                int gameTurns = moveHistory.split("\n").length;
+        
+                String gameStateCompare = rst.getString("isFinished");
+                System.out.println(gameStateCompare.equals("Yes"));
+                System.out.println(gameStateCompare.equals("No"));
+                
+                if (gameStateCompare.equals("Yes")) {
+                    
+                    System.out.println("Hi1");
+                    
+                    if(rst.getString("winner").equals("White")) 
+                        player2.isLoser = true; 
+                    else if(rst.getString("winner").equals("Black")) 
+                        player1.isLoser = true; 
+                    
+                } else { 
+                    
+                    System.out.println("Hi2");
+
+                    if (rst.getString("playerTurn").equals("White"))
+			player1.isTurn = true;
+                        
+                    else if (rst.getString("playerTurn").equals("Black"))
+			player2.isTurn = true;
+                }
+                
+         
+                
+                initGame = new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
+                    
+                
+                } catch (IOException e) { 
+                    System.err.println("cant find game");
+                }
+               
+            }
+
+        } catch(SQLException e) { 
             
+            e.printStackTrace();
         }
         
+        System.out.println(initGame.gameBoard.toString());
+        
+        return initGame;
+    }
+    
+    
+    public void insertGametoDB(String username, String gameID, Game game) { 
+
+        File gameFile = new File(gameID+".txt");
+        String sqlQuery = "";
+        
+        try {
+            Statement statement = conn.createStatement();
+            
+                /**
+                 * generate a text file so that the move history 
+                 * and the the pieces location can be stored
+                 */
+                FileWriter fileWriter = new FileWriter(gameFile, false);
+		BufferedWriter buffer = new BufferedWriter(fileWriter);
+		PrintWriter printWriter = new PrintWriter(buffer);
+                
+                String gameTxt = ""; 
+                gameTxt += "@Board\n" + game.gameBoard.toString()+"\n";
+                gameTxt += "@Move_History\n" + game.moveHistory;
+                
+                printWriter.print(gameTxt);
+		printWriter.close();
+        
+            if (checkGameExists(username, gameID)) {    //update 
+                                                    
+                System.out.println("saving previous game game...");
+                
+                sqlQuery = "UPDATE C_GAME SET datePlayed = '" +game.datePlayed+ "', ";
+            
+                if (game.player1.isLoser || game.player2.isLoser ) {
+                    
+                    sqlQuery += "isFinished = 'Yes', playerTurn = null, winner = ";
+                    sqlQuery += game.player1.isLoser ? "'Black'" : "'White'";
+                    
+                } else { 
+                    sqlQuery += "playerTurn = ";
+                    sqlQuery += game.player1.isTurn ? "'White'" : "'Black'"; 
+                }
+                
+                sqlQuery += "WHERE username = '" +username+ "' AND "
+                        + "gameID = '" +gameID+"'";
+                
+            } else { //insert new row
+            
+                System.out.println("saving game...");
+            
+                sqlQuery  = 
+                         "INSERT INTO " + this.gameTable +" (gameID, username, datePlayed, isFinished, playerTurn, winner) "
+                                + " VALUES ('" + gameID + "', '" + username + "', '" + game.datePlayed +"', ";
+                
+                
+                if (game.player1.isLoser || game.player2.isLoser ) {
+                    
+                    sqlQuery += "'Yes', null, "; 
+                    sqlQuery += game.player1.isLoser ? "'Black')" : "'White')";
+                } else { 
+                    
+                    sqlQuery += "'No', "; 
+                    sqlQuery += game.player1.isTurn ? "'White', null)" : "'Black', null)"; 
+                }
+                
+            }
+            
+            System.out.println(sqlQuery); 
+            statement.executeUpdate(sqlQuery);
+            
+        } catch (SQLException | IOException e) { 
+                 e.printStackTrace();
+        }
         
     }
     
@@ -373,7 +470,7 @@ public class Chess_DB {
        } catch (SQLException e) { 
            e.printStackTrace();
        }
-        System.out.println(flag);
+        
         return flag;
         
     }
@@ -409,6 +506,12 @@ public class Chess_DB {
         
         return flag;
     }
+    
+    /**
+     * check for every row in the game table 
+     * if the txt file cannot be found then delete
+     * the game from the database 
+     */
     
     
     

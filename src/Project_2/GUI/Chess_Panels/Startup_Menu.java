@@ -76,7 +76,6 @@ public class Startup_Menu extends JPanel implements Observer{
             System.err.println("FILE NOT FOUND");
         }
         
-        
         setLayout(null);
         setPreferredSize(new Dimension(980,720));
         setBackground(new Color(50, 50, 50));
@@ -92,8 +91,6 @@ public class Startup_Menu extends JPanel implements Observer{
     public void update(Observable o, Object arg) {
 
         Data data = (Data) arg; 
-        
-       //System.out.println("STARTUP MENU STATE: "+data.menu);
         
         switch (data.menu) {
                

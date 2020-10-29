@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class Data {
     
     public MENU_STATE menu; 
-    public User_Data u_data;
     
     public String gameID;
     public String moveHistory;
