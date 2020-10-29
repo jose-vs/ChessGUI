@@ -75,6 +75,7 @@ public class Chess_Model extends Observable {
             this.data.menu = MENU_STATE.NEW_GAME;
         else { 
             this.data.menu = MENU_STATE.START_GAME;
+            this.data.storedGames.add(gameID);
             this.gameID = gameID;
             this.data.setMoveHistory("");
             this.data.createNewGame();
@@ -117,22 +118,22 @@ public class Chess_Model extends Observable {
         
         switch (data.menu) {
             
-            case NEW_USER:
+            case NEW_USER :
+            case GAME_SELECT_MENU :
+            case MOVE_HISTORY :
                 
                 this.data.menu = MENU_STATE.START_MENU;
                 break;
                 
-            case GAME_SELECT_MENU:
-            case MOVE_HISTORY:
-                this.data.menu = MENU_STATE.START_MENU;
-                break;
+            case GAME_FINISHED :   
+            case NEW_GAME :
                 
-            case NEW_GAME:
                 this.data.menu = MENU_STATE.GAME_SELECT_MENU;
                 break;
             case PIECE_SELECTED :
             case NEW_POS_SELECTED :
             case START_GAME : 
+                
                 this.data.setMoveHistory(data.game.moveHistory);
                 this.data.menu = MENU_STATE.GAME_SELECT_MENU;
             
@@ -155,6 +156,7 @@ public class Chess_Model extends Observable {
         System.out.println(data.game.player2.isLoser);
         
         if(!data.game.player1.isLoser && !data.game.player2.isLoser ) {
+            
             if(data.menu == MENU_STATE.PIECE_SELECTED ) {
 
                 try { 
@@ -176,12 +178,14 @@ public class Chess_Model extends Observable {
             }
             
             data.setMoveHistory(data.game.moveHistory);
-        
-            this.setChanged();
-            this.notifyObservers(this.data);
-  
+
+        }
+        if (data.game.player1.isLoser || data.game.player2.isLoser){ 
+            data.menu = MENU_STATE.GAME_FINISHED;
         }
  
+        this.setChanged();
+        this.notifyObservers(this.data);
     }
    
 }

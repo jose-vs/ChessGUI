@@ -24,8 +24,7 @@ public class Chess {
         model.addObserver(window.startup_menu);
         model.addObserver(window.game_select_menu);
         model.addObserver(window.start_game);
-        
-         
+
     }
 
 }

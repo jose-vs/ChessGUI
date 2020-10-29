@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 /**
@@ -43,7 +44,8 @@ public class Start_Game extends JPanel implements Observer{
     
     public Chess_Square_Button[][] board;
     
-    public JLabel moveHistory, moveHistoryTitle, playerTurn; 
+    public JLabel moveHistoryTitle, playerTurn; 
+    public JTextArea moveHistory;
     public JButton save, back; 
     
     public Start_Game() { 
@@ -51,10 +53,11 @@ public class Start_Game extends JPanel implements Observer{
         boardSetup();
         
         //FIX
-        moveHistory = new JLabel(); 
-        moveHistory.setBounds(640,70,310,100);
+        moveHistory = new JTextArea(); 
+        moveHistory.setBounds(630,80,310,400);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(70,70,70));
+        moveHistory.setEditable(false);
         add(moveHistory);
         
         moveHistoryTitle = new JLabel("Move History"); 
@@ -75,7 +78,7 @@ public class Start_Game extends JPanel implements Observer{
         
         back = new JButton("Back"); 
         back.setBounds(800,585,140,25);
-        back(exit);
+        add(back);
         
         
         setLayout(null);
@@ -254,6 +257,7 @@ public class Start_Game extends JPanel implements Observer{
         this.repaint();
     }
     
+    @Override
     public void paintComponent(Graphics g) { 
         super.paintComponent(g); 
         g.setColor(new Color(250,250,250));
@@ -268,9 +272,17 @@ public class Start_Game extends JPanel implements Observer{
         
         updatePieces(data.game);
   
-        this.moveHistory.setText(data.moveHistoryHTML);
+        this.moveHistory.setText(data.moveHistory);
         String playerTurn = data.game.player1.isTurn ? "White to move." : "Black to move.";
         this.playerTurn.setText(playerTurn);
+        
+        switch(data.menu) { 
+            case GAME_FINISHED :
+                
+                String winnerBanner = data.game.player1.isLoser ? "Black Won!!" : "White Won!!";
+                
+                this.playerTurn.setText(winnerBanner);
+        }
    
     }
     

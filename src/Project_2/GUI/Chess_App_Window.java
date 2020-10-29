@@ -55,7 +55,7 @@ public class Chess_App_Window extends JFrame implements Observer{
     public void update(Observable o, Object arg) {
        
         Data data = (Data) arg;
-       
+       System.out.println("CURRENT MENU STATE: " + data.menu);
         
         switch (data.menu) { 
             
