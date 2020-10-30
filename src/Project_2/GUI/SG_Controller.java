@@ -37,7 +37,6 @@ public class SG_Controller implements ActionListener {
 
 
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -54,10 +53,15 @@ public class SG_Controller implements ActionListener {
             switch (command) {
 
                 case "Save" :
-
                     model.saveGame();
+                    sg.savedGame.setVisible(true);
+                    int delay = 1000; //appear for two seconds
+                    ActionListener visibility = (ActionEvent ev) -> {
+                        sg.savedGame.setVisible(false);
+                    };
+                    new javax.swing.Timer(delay, visibility).start();
                     break;
-
+                 
                 case "Back" :
                     model.back(model.data);
                     break;
