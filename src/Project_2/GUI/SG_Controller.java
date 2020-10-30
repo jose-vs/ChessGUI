@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Project_2.GUI;
 
 import Project_2.GUI.Chess_Panels.Start_Game;
@@ -32,11 +27,8 @@ public class SG_Controller implements ActionListener {
 
             }
         }
-
-
-
-
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
