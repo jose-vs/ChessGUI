@@ -19,9 +19,4 @@ public enum MENU_STATE {
     START_GAME_MENU, 
     PIECE_SELECTED, NEW_POS_SELECTED,
     GAME_FINISHED
-    
-    
-    
-   
-  
 }
