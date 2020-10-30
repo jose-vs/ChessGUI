@@ -5,8 +5,8 @@ import org.junit.Test;
  * This class contains tests that check whether or not the
  * Game board is set up correctly with the right pieces
  * 
- * @author David Anderson 19065861
  * @author Jose Santos 17993442
+ * @author David Anderson 19065861
  */
 public class BoardTest {
     
@@ -17,7 +17,6 @@ public class BoardTest {
      * Test of setPlayerBlack method, of class Board.
      * 
      * @author David Anderson 19065861
-     * @author Jose Santos 17993442
      */
     @Test
     public void testSetPlayerBlack(){
@@ -39,7 +38,6 @@ public class BoardTest {
      * @param board a board object that contains the pieces and squares
      * 
      * @author David Anderson 19065861
-     * @author Jose Santos 17993442
      */
     public void testHelp(int row, Board board)
     {
@@ -53,7 +51,6 @@ public class BoardTest {
      * Test of setPlayerWhite method, of class Board.
      * 
      * @author David Anderson 19065861
-     * @author Jose Santos 17993442
      */
     @Test
     public void testSetPlayerWhite() {

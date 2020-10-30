@@ -19,7 +19,6 @@ public class KingTest {
   /**
     * This method tests the upwards movement of the King Piece
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
    @Test
@@ -38,7 +37,6 @@ public class KingTest {
    /**
     * This method tests the Left movement of the King Piece
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -57,7 +55,6 @@ public class KingTest {
    /**
     * This method tests the Right movement of the King Piece
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -76,7 +73,6 @@ public class KingTest {
    /**
     * This method tests the Diagonal movement of the King Piece
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -95,9 +91,8 @@ public class KingTest {
     * This method tests if the movement of the King Piece into
     * an invalid end point throws the correct exception
     * 
-    * @exception InvalidEndPointException 
+    * @exception InvalidEndPointException a relevant exception when a piece reaches an end point
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test(expected = InvalidEndPointException.class)

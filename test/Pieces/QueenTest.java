@@ -20,7 +20,6 @@ public class QueenTest {
      * Test of isValidPath method, of class Queen.
      * @throws Exception.InvalidPathException An exception that prints out relevant information if User enters invalid path.
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -39,7 +38,6 @@ public class QueenTest {
      * Test of Queens Vertical Movement
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -63,7 +61,6 @@ public class QueenTest {
      * Test of Queens Horizontal Movement
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -86,7 +83,6 @@ public class QueenTest {
      * Test of Queens Diagonal Movement
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -111,7 +107,6 @@ public class QueenTest {
      * @throws Exception
      * @expected InvalidEndPointException
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test(expected = InvalidEndPointException.class)
