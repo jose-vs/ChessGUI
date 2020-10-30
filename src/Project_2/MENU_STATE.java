@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Project_2;
-
 /**
- *
- * @author Jose
- */
+* This Enumerated type class, stores and contains the states of the GUI Menu
+*
+* @author David Anderson 19065861
+* @author Jose Santos 17993442
+*
+*/
 public enum MENU_STATE {
     
     START_MENU, 
@@ -22,9 +19,4 @@ public enum MENU_STATE {
     START_GAME_MENU, 
     PIECE_SELECTED, NEW_POS_SELECTED,
     GAME_FINISHED
-    
-    
-    
-   
-  
 }
