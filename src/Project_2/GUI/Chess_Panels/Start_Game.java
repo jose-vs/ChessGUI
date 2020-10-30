@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Project_2.GUI.Chess_Panels;
 
 import Game.*;
@@ -44,7 +39,7 @@ public class Start_Game extends JPanel implements Observer{
     
     public Chess_Square_Button[][] board;
     
-    public JLabel moveHistoryTitle, playerTurn; 
+    public JLabel moveHistoryTitle, playerTurn, savedGame; 
     public JTextArea moveHistory;
     public JButton save, back; 
     
@@ -72,7 +67,14 @@ public class Start_Game extends JPanel implements Observer{
         playerTurn.setFont(new Font("Arial", Font.BOLD, 18));
         playerTurn.setForeground(new Color(242, 243, 244 ));
         add(playerTurn);
-        
+	    
+        savedGame = new JLabel("Saved Game");
+        savedGame.setBounds(640,615,200,50);
+        savedGame.setFont(new Font("Arial", Font.BOLD, 18));
+        savedGame.setForeground(new Color(242, 243, 244));
+        savedGame.setVisible(false);
+        add(savedGame);
+	    
         save = new JButton("Save"); 
         save.setBounds(630,585,140,25);
         add(save); 
