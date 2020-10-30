@@ -20,7 +20,6 @@ public class RookTest {
      * Test of isValidPath method, of class Rook.
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -40,7 +39,6 @@ public class RookTest {
      * Test of VerticalMovement method, of class Rook.
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -64,7 +62,6 @@ public class RookTest {
      * Test of Rook Horizontal Movement
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -88,7 +85,6 @@ public class RookTest {
      * Test of invalidEndPoint for Rook piece
      * @throws Exception
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test(expected = InvalidEndPointException.class)
@@ -101,15 +97,4 @@ public class RookTest {
         
         game.isValidEndPoint(start, 3, 1);
     }
-    
-   /* @Test(expected = MoveOutOfBoundsException.class)
-    public void tesOutofBounds() throws Exception
-    {
-        Game game = new Game();
-        Piece rook = new Rook(game.player1);
-        game.gameBoard.board[0][3].setPiece(rook);
-        BoardSquare start = game.gameBoard.board[0][3];
-       
-        game.move(start, -1, 3);
-    }*/
 }

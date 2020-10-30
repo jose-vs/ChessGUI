@@ -19,7 +19,6 @@ public class KnightTest {
     * 
     * @throws Exception
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -46,7 +45,6 @@ public class KnightTest {
     * 
     * @throws Exception
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -75,7 +73,6 @@ public class KnightTest {
     * 
     * @throws Exception
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test

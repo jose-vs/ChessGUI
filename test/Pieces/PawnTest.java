@@ -21,7 +21,6 @@ public class PawnTest {
      * Test of isValidPath method, of class Pawn.
      * @throws Exception.InvalidPathException
      * 
-     * @author Jose Santos 17993442
      * @author David Anderson 19065861
      */
     @Test
@@ -41,7 +40,6 @@ public class PawnTest {
     * 
     * @throws Exception
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -60,7 +58,6 @@ public class PawnTest {
     * 
     * @throws Exception
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
@@ -81,7 +78,6 @@ public class PawnTest {
     * 
     * @throws Exception
     * 
-    * @author Jose Santos 17993442
     * @author David Anderson 19065861
     */
     @Test
