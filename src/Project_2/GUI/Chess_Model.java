@@ -76,7 +76,7 @@ public class Chess_Model extends Observable {
             this.data.menu = MENU_STATE.NEW_GAME;
         else { 
             this.data.menu = MENU_STATE.START_GAME;
-            this.data.storedGames.add(gameID);
+            this.data.storedGames.add(" "+gameID);
             this.gameID = gameID;
             this.data.moveHistory = "";
             this.data.createNewGame();

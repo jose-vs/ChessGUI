@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 public class Chess_DB {
     
     Connection conn = null; 
+    
     String dbURL = "jdbc:derby://localhost:1527/chessDB;create=true"; 
     String dbUSERNAME = "app"; 
     String dbPASSWORD = "app"; 
@@ -44,6 +45,7 @@ public class Chess_DB {
             
             conn = DriverManager.getConnection(dbURL, dbUSERNAME, dbPASSWORD); 
             Statement statement = conn.createStatement(); 
+            conn.setAutoCommit(true);
 
             if(!checkTableExisting(userTable)) { 
                 statement.executeUpdate(
@@ -248,22 +250,22 @@ public class Chess_DB {
         Scanner reader;
         File gameFile;
         
-    
-        
+        System.out.println("username : " +username+ 
+                            "\ngameID : "+gameID);
+ 
         try { 
+
             String sqlQuery = "SELECT * FROM C_GAME WHERE username = '" +username+ "'"
                     + "AND gameID = '" +gameID+"'"; 
             Statement statement = conn.createStatement(); 
             ResultSet rst = statement.executeQuery(sqlQuery);
-            
+
             if(rst.next()) { 
                 try{ 
-                    
-                    
+
                     String fileString = "";
                     gameFile = new File(rst.getString("gameID")+".txt");
-                    
-                    //System.out.println(rst.getString("gameID"));
+
                     reader = new Scanner(new FileReader(gameFile)); 
                     
                     while (reader.hasNextLine())
@@ -277,7 +279,6 @@ public class Chess_DB {
                     BoardSquare[][] initBoardSquare = new BoardSquare[8][8];
                     int yPos = 7; 
                     int xPos = 0;
-                    
 
                     for (int x = 1; x <= 8; x++) {
 
@@ -340,7 +341,7 @@ public class Chess_DB {
 			player2.isTurn = true;
                 }
 
-                initGame = new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
+                 return new Game(gameTurns, moveHistory, initBoard, rst.getString("datePlayed"), player1, player2);
                     
                 
                 } catch (IOException e) { 
@@ -351,10 +352,7 @@ public class Chess_DB {
         } catch(SQLException e) { 
             
            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
-        }
-        
-        System.out.println(initGame.gameBoard.toString());
-        
+        } 
         return initGame;
     }
     
@@ -421,9 +419,10 @@ public class Chess_DB {
                 }
                 
             }
-            
+
             System.out.println(sqlQuery); 
             statement.executeUpdate(sqlQuery);
+            
             
         } catch (SQLException | IOException e) { 
             Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
@@ -498,7 +497,7 @@ public class Chess_DB {
         try { 
             
             Statement statement = conn.createStatement(); 
-            conn.setAutoCommit(false);
+            
             
             File file; 
             Scanner reader;

@@ -26,8 +26,7 @@ public class Data {
     
     public Data() { 
         menu = MENU_STATE.START_MENU;
-        
-        
+
         storedGames = new ArrayList<>();
         game = new Game();
     }
@@ -36,10 +35,5 @@ public class Data {
         Game newGame = new Game(); 
         this.game = newGame;
     }
-    /*
-        public void setMoveHistory(String moveHistory) { 
-            this.moveHistory = moveHistory;
-            this.moveHistoryHTML = "<html>" +moveHistory.replaceAll("\n", "<br/>") +"</html>";
-        }
-   */
+   
 }
