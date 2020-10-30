@@ -19,36 +19,32 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 
 /**
+ * This class contains/creates the GUI components for the JPanel
+ * that correlates to the Chess game and Board
  *
- * @author Jose
+ * 
+ * @author Jose Santos 17993442
+ * @author David Anderson 19065861
  */
 public class Start_Game extends JPanel implements Observer{
     
-    /**
-     * when a user clicks on a button, the controller will tell the 
-     * controller that a piece has been moved to another spot
-     * the model will change the data object with that move
-     * 
-     * the model will then update the observer with the new data so 
-     * the view will be updated and move the piece into the right place
-     */
-   
-    
     public Chess_Square_Button[][] board;
-    
     public JLabel moveHistoryTitle, playerTurn, savedGame; 
     public JTextArea moveHistory;
     public JButton save, back; 
     
+    /**
+     * Constructor setting up GUI within The Start Game Menu
+     * 
+     * @author Jose Santos 17993442
+     */
     public Start_Game() { 
-        board = new Chess_Square_Button[8][8];
+        board = new Chess_Square_Button[8][8]; //Board is a 8 by 8 JButton
         boardSetup();
         
-        //FIX
-        moveHistory = new JTextArea(); 
+        moveHistory = new JTextArea(); //Create TextArea that contains the chess moves of the user
         moveHistory.setBounds(650,80,290,475);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(70,70,70));
@@ -56,39 +52,46 @@ public class Start_Game extends JPanel implements Observer{
         moveHistory.setEditable(false);
         add(moveHistory);
         
-        moveHistoryTitle = new JLabel("Move History"); 
+        moveHistoryTitle = new JLabel("Move History");  //Create Label for Move History
         moveHistoryTitle.setBounds(640,40,100,50);
         moveHistoryTitle.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistoryTitle.setForeground(new Color(66, 73, 73));
         add(moveHistoryTitle);
         
-        playerTurn = new JLabel(); 
+        playerTurn = new JLabel();  //Create Label that tells user who's turn it is
         playerTurn.setBounds(100,615,200,50); 
         playerTurn.setFont(new Font("Arial", Font.BOLD, 18));
-        playerTurn.setForeground(new Color(242, 243, 244 ));
+        playerTurn.setForeground(new Color(242, 243, 244));
         add(playerTurn);
-	    
-        savedGame = new JLabel("Saved Game");
+        
+        savedGame = new JLabel("Saved Game"); //Create Label that tells user if game was saved
         savedGame.setBounds(640,615,200,50);
         savedGame.setFont(new Font("Arial", Font.BOLD, 18));
         savedGame.setForeground(new Color(242, 243, 244));
         savedGame.setVisible(false);
         add(savedGame);
-	    
-        save = new JButton("Save"); 
+        
+        save = new JButton("Save"); //Create button to save game
         save.setBounds(630,585,140,25);
         add(save); 
         
-        back = new JButton("Back"); 
+        back = new JButton("Back");  //Create button to go back to Game Select
         back.setBounds(800,585,140,25);
         add(back);
-        
         
         setLayout(null);
         setPreferredSize(new Dimension(980,720));
         setBackground(new Color(23, 32, 42));
     }
     
+    
+    /**
+     * This method returns a void, and contains the code to create
+     * an empty Chess Board, setting the bounds of each square and 
+     * the respective color
+     * 
+     * @author Jose Santos 17993442
+     */
     public void  boardSetup() { 
         //[col][row]
         int xPos = 50;
@@ -123,7 +126,12 @@ public class Start_Game extends JPanel implements Observer{
             yCoor++;
         }
     }
-    
+   /**
+     * This method updates the already setup Chess Board, placing chess Piece icons
+     * into the respective JButtons by using coordinates.
+     * 
+     * @author Jose Santos 17993442
+     */
     public void updatePieces(Game game){ 
         
         BoardSquare[][] gameBoard = game.gameBoard.board;
@@ -259,7 +267,13 @@ public class Start_Game extends JPanel implements Observer{
         
         this.repaint();
     }
-    
+   /**
+     * Paint component method sets color and rect size
+     * 
+     * @param g a Graphic/Icon
+     * 
+     * @author Jose Santos 17993442
+     */
     @Override
     public void paintComponent(Graphics g) { 
         super.paintComponent(g); 
@@ -268,6 +282,16 @@ public class Start_Game extends JPanel implements Observer{
     }
     
     
+    /**
+     * This Update method, takes in an observable and an Object
+     * which is responsible for updating the Label that contains who's turn it is
+     * and replaces it with a relevant message in regards to the current MENU_STATE
+     * 
+     * @param o an Observer 
+     * @param arg an object
+     * 
+     * @author Jose Santos 17993442
+     */
     @Override
     public void update(Observable o, Object arg) {
 
@@ -280,7 +304,7 @@ public class Start_Game extends JPanel implements Observer{
         this.playerTurn.setText(playerTurn);
         
         switch(data.menu) { 
-            case GAME_FINISHED :
+            case GAME_FINISHED : //A Player has Won
                 
                 String winnerBanner = data.game.player1.isLoser ? "Black Won!!" : "White Won!!";
                 
