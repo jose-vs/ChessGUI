@@ -27,6 +27,7 @@ public class Chess_Model extends Observable {
     public Chess_Model() { 
         this.db = new Chess_DB(); 
         this.db.dbSetup();
+        this.db.deleteNonExistingGames();
     }
     
     public void checkName(String username, String password) { 
@@ -77,7 +78,7 @@ public class Chess_Model extends Observable {
             this.data.menu = MENU_STATE.START_GAME;
             this.data.storedGames.add(gameID);
             this.gameID = gameID;
-            this.data.setMoveHistory("");
+            this.data.moveHistory = "";
             this.data.createNewGame();
             
             System.out.println("NEW GAME CREATED " + gameID +" \nat username: " + this.username );
@@ -89,7 +90,7 @@ public class Chess_Model extends Observable {
     
     public void continueGame() { 
         Game game = this.db.loadGame(this.gameID, this.username);
-        this.data.setMoveHistory(game.moveHistory);
+        this.data.moveHistory = (game.moveHistory);
         this.data.game = game; 
         this.data.menu = MENU_STATE.START_GAME;
         
@@ -134,7 +135,7 @@ public class Chess_Model extends Observable {
             case NEW_POS_SELECTED :
             case START_GAME : 
                 
-                this.data.setMoveHistory(data.game.moveHistory);
+                this.data.moveHistory = (data.game.moveHistory);
                 this.data.menu = MENU_STATE.GAME_SELECT_MENU;
             
         }
@@ -177,7 +178,7 @@ public class Chess_Model extends Observable {
                 data.menu = MENU_STATE.PIECE_SELECTED;
             }
             
-            data.setMoveHistory(data.game.moveHistory);
+            data.moveHistory = (data.game.moveHistory);
 
         }
         if (data.game.player1.isLoser || data.game.player2.isLoser){ 

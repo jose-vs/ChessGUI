@@ -36,10 +36,10 @@ public class Data {
         Game newGame = new Game(); 
         this.game = newGame;
     }
-    
-    public void setMoveHistory(String moveHistory) { 
-        this.moveHistory = moveHistory;
-        this.moveHistoryHTML = "<html>" +moveHistory.replaceAll("\n", "<br/>") +"</html>";
-    }
-   
+    /*
+        public void setMoveHistory(String moveHistory) { 
+            this.moveHistory = moveHistory;
+            this.moveHistoryHTML = "<html>" +moveHistory.replaceAll("\n", "<br/>") +"</html>";
+        }
+   */
 }

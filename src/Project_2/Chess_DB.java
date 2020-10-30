@@ -104,8 +104,8 @@ public class Chess_DB {
                 
             }
   
-        } catch (SQLException ex) {
-            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         
         return data;
@@ -125,8 +125,8 @@ public class Chess_DB {
             data.menu = MENU_STATE.START_MENU;
             
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         
         return data;
@@ -159,8 +159,8 @@ public class Chess_DB {
              
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         data_update.menu = MENU_STATE.GAME_SELECT_MENU;
 
@@ -192,7 +192,7 @@ public class Chess_DB {
                     
                     System.out.println(gameInfo[2].substring(gameInfo[2].indexOf('\n')+1));
                     
-                    data.setMoveHistory(gameInfo[2].substring(gameInfo[2].indexOf('\n')+1));
+                    data.moveHistory = (gameInfo[2].substring(gameInfo[2].indexOf('\n')+1));
                 }
       
             }catch (IOException o) {
@@ -201,8 +201,8 @@ public class Chess_DB {
 			
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         
         return data;
@@ -350,7 +350,7 @@ public class Chess_DB {
 
         } catch(SQLException e) { 
             
-            e.printStackTrace();
+           Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         
         System.out.println(initGame.gameBoard.toString());
@@ -426,7 +426,7 @@ public class Chess_DB {
             statement.executeUpdate(sqlQuery);
             
         } catch (SQLException | IOException e) { 
-                 e.printStackTrace();
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         
     }
@@ -445,9 +445,11 @@ public class Chess_DB {
                 flag = false;
             }
            
-       } catch (SQLException e) { 
-           e.printStackTrace();
-       }
+        } catch (SQLException e) { 
+            
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
+            
+        }
         
         return flag;
         
@@ -460,11 +462,11 @@ public class Chess_DB {
             System.out.println("check existing tables.... ");
             String[] types = {"TABLE"};
             DatabaseMetaData dbmd = conn.getMetaData();
-            ResultSet rsDBMeta = dbmd.getTables(null, null, null, null);
+            ResultSet rst = dbmd.getTables(null, null, null, null);
             
-            while (rsDBMeta.next()) {
+            while (rst.next()) {
                 
-                String tableName = rsDBMeta.getString("TABLE_NAME");
+                String tableName = rst.getString("TABLE_NAME");
                 
                 if (tableName.compareToIgnoreCase(newTableName) == 0) {
                     System.out.println(tableName + "  is there");
@@ -472,14 +474,14 @@ public class Chess_DB {
                 }
             }
             
-            if (rsDBMeta != null) {
+            if (rst != null) {
                 
-                rsDBMeta.close();
+                rst.close();
                 
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
             
-            ex.printStackTrace();
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
         }
         
         return flag;
@@ -490,5 +492,39 @@ public class Chess_DB {
      * if the txt file cannot be found then delete
      * the game from the database 
      */
+    
+    public void deleteNonExistingGames(){ 
+        
+        try { 
+            
+            Statement statement = conn.createStatement(); 
+            conn.setAutoCommit(false);
+            
+            File file; 
+            Scanner reader;
+            ResultSet rst = statement.executeQuery(
+                    "SELECT username, gameID FROM "+this.gameTable);
+            
+            
+            while (rst.next()) { 
+                
+                try { 
+                    file = new File(rst.getString("gameID")+".txt");
+                    reader = new Scanner(new FileReader(file));
+                } catch (IOException e) { 
+                    statement.execute(
+                        "DELETE FROM "+this.gameTable+" WHERE gameID = '" +rst.getString("gameID")+"'");
+                } 
+            }
+
+        } catch (SQLException e ) { 
+            
+            Logger.getLogger(Chess_DB.class.getName()).log(Level.SEVERE, null, e);
+            
+        }
+        
+        
+    }
+    
 
 }

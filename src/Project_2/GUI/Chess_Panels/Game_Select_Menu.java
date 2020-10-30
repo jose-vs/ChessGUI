@@ -49,6 +49,7 @@ public class Game_Select_Menu extends JPanel implements Observer {
         games = new JList();
         games.setBounds(250,150,200,300);
         games.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        games.setBackground(new Color(242, 243, 244 ));
         add(games);
 
         mHistory_but = new JButton("Move History");
@@ -56,30 +57,30 @@ public class Game_Select_Menu extends JPanel implements Observer {
         add(mHistory_but);
 
         moveHistory = new JTextArea();
-        moveHistory.setBounds(500,160,720,100);
+        moveHistory.setBounds(500,160,400,300);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
-        moveHistory.setForeground(new Color(255,255,255));
-        moveHistory.setBackground(new Color(70,70,70));
+        moveHistory.setForeground(new Color(46, 64, 83 ));
+        moveHistory.setBackground(new Color(248, 196, 113));
         moveHistory.setEditable(false);
         add(moveHistory);
 
         mHistory_title = new JLabel("Move History");
         mHistory_title.setBounds(480,80,720,100);
         mHistory_title.setFont(new Font("Arial", Font.BOLD, 18));
-        mHistory_title.setForeground(new Color(255,255,255));
+        mHistory_title.setForeground(new Color(242, 243, 244 ));
         add(mHistory_title);
 
         setLayout(null);
         setPreferredSize(new Dimension(980,720));
-        setBackground(new Color(50, 50, 50));
+        setBackground(new Color(28, 40, 51 ));
     }
 
     public void paintComponent(Graphics g) {
 
 	super.paintComponent(g);
-	g.setColor(new Color(30,30,30));
+	g.setColor(new Color(23, 32, 42));
 	g.fillRect(0,470,980,320);
-        g.setColor(new Color(70,70,70));
+        g.setColor(new Color(248, 196, 113));
         g.fillRect(480,150,500,320);
     }
 

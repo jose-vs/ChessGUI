@@ -54,22 +54,23 @@ public class Start_Game extends JPanel implements Observer{
         
         //FIX
         moveHistory = new JTextArea(); 
-        moveHistory.setBounds(630,80,310,400);
+        moveHistory.setBounds(650,80,290,475);
         moveHistory.setFont(new Font("Arial", Font.BOLD, 16));
         moveHistory.setForeground(new Color(70,70,70));
+        moveHistory.setBackground(new Color(242, 243, 244 ));
         moveHistory.setEditable(false);
         add(moveHistory);
         
         moveHistoryTitle = new JLabel("Move History"); 
-        moveHistoryTitle.setBounds(630,40,100,50);
+        moveHistoryTitle.setBounds(640,40,100,50);
         moveHistoryTitle.setFont(new Font("Arial", Font.BOLD, 16));
-        moveHistoryTitle.setForeground(new Color(50,50,50));
+        moveHistoryTitle.setForeground(new Color(66, 73, 73));
         add(moveHistoryTitle);
         
         playerTurn = new JLabel(); 
         playerTurn.setBounds(100,615,200,50); 
-        playerTurn.setFont(new Font("Arial", Font.BOLD, 16));
-        playerTurn.setForeground(new Color(254,254,254));
+        playerTurn.setFont(new Font("Arial", Font.BOLD, 18));
+        playerTurn.setForeground(new Color(242, 243, 244 ));
         add(playerTurn);
         
         save = new JButton("Save"); 
@@ -83,7 +84,7 @@ public class Start_Game extends JPanel implements Observer{
         
         setLayout(null);
         setPreferredSize(new Dimension(980,720));
-        setBackground(new Color(50, 50, 50));
+        setBackground(new Color(23, 32, 42));
     }
     
     public void  boardSetup() { 
@@ -101,7 +102,7 @@ public class Start_Game extends JPanel implements Observer{
 
                 if ((row % 2 == 0 && col % 2 == 0) || 
                         ((row+1) % 2 == 0 && (col+1) % 2 == 0))
-                    board[row][col].setBackground(new Color(254,254,254));
+                    board[row][col].setBackground(new Color(242,243,244));
 		else
                     board[row][col].setBackground(new Color(251, 166, 108));
                 
@@ -260,7 +261,7 @@ public class Start_Game extends JPanel implements Observer{
     @Override
     public void paintComponent(Graphics g) { 
         super.paintComponent(g); 
-        g.setColor(new Color(250,250,250));
+        g.setColor(new Color(242, 243, 244 ));
         g.fillRect(630,50,310,515); 
     }
     

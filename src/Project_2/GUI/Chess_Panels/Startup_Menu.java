@@ -32,13 +32,13 @@ public class Startup_Menu extends JPanel implements Observer{
         welcome_message = new JLabel("Chess Game for PDC AUT 2020");
         welcome_message.setBounds(50,0,1000,100);
         welcome_message.setFont(new Font("Arial", Font.PLAIN, 38));
-        welcome_message.setForeground(new Color(255,255,255));
+        welcome_message.setForeground(new Color(242, 243, 244 ));
         add(welcome_message);
         
         userNotFound = new JLabel("Invalid username or password"); 
         userNotFound.setBounds(80,80,400,100);
         userNotFound.setFont(new Font("Arial", Font.BOLD, 16));
-        userNotFound.setForeground(new Color(255,255,255));
+        userNotFound.setForeground(new Color(242, 243, 244 ));
         userNotFound.setVisible(false);
         add(userNotFound);
         
@@ -78,7 +78,7 @@ public class Startup_Menu extends JPanel implements Observer{
         
         setLayout(null);
         setPreferredSize(new Dimension(980,720));
-        setBackground(new Color(50, 50, 50));
+        setBackground(new Color(23, 32, 42));
     }
     
     @Override 
